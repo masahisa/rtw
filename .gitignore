@@ -1,0 +1,7 @@
+.*
+!.gitignore
+bin/
+build/
+cov/lcov
+doc/doxygen/
+lib/
