@@ -14,10 +14,7 @@ constexpr bool binary_search(ForwardIterator first, ForwardIterator last, const 
         DifferenceType half = distance >> 1;
         ForwardIterator middle = first;
         std::advance(middle, half);
-        if(*middle == value){
-            return true;
-        }
-        else if(*middle < value){
+        if(*middle < value){
             first = middle;
             ++first;
             distance = distance - half - 1;
@@ -26,7 +23,7 @@ constexpr bool binary_search(ForwardIterator first, ForwardIterator last, const 
             distance = half;
         }
     }
-    return false;
+    return first != last && !(value < *first);
 }
 
 template<typename ForwardIterator, typename T, typename Compare>
@@ -38,10 +35,7 @@ constexpr bool binary_search(ForwardIterator first, ForwardIterator last, const 
         DifferenceType half = distance >> 1;
         ForwardIterator middle = first;
         std::advance(middle, half);
-        if(!(compare(*middle, value) || compare(value, *middle))){
-            return true;
-        }
-        else if(compare(*middle, value)){
+        if(compare(*middle, value)){
             first = middle;
             ++first;
             distance = distance - half - 1;
@@ -50,7 +44,7 @@ constexpr bool binary_search(ForwardIterator first, ForwardIterator last, const 
             distance = half;
         }
     }
-    return false;
+    return first != last && !(compare(value, *first));
 }
 
 } // namespace rtw
