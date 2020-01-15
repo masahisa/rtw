@@ -8,6 +8,7 @@ add_executable(
     run_all_tests
     "run_all_tests.cpp"
     "test_binary_search.cpp"
+    "test_linear_search.cpp"
 )
 
 # target link libraries
