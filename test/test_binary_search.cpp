@@ -70,6 +70,14 @@ TEST_F(BinarySearchTest, Compare)
     std::vector<Data> v3{ {1, 3}, {2, 4}, {5, 6} };
     EXPECT_TRUE(v3.begin() == rtw::binary_search(v3.begin(), v3.end(), Data{ 1, 3 }, [](const Data& lhs, const Data& rhs) -> auto { return lhs.a + lhs.b < rhs.a + rhs.b; }));
     EXPECT_TRUE(v3.end() == rtw::binary_search(v3.begin(), v3.end(), Data{ 2, 3 }, [](const Data& lhs, const Data& rhs) -> auto { return lhs.a + lhs.b < rhs.a + rhs.b; }));
+
+    struct Op {
+        bool operator()(const Data& lhs, const Data& rhs){
+            return lhs.a + lhs.b < rhs.a + rhs.b; 
+        }
+    };
+    EXPECT_TRUE(v3.begin() == rtw::binary_search(v3.begin(), v3.end(), Data{ 1, 3 }, Op()));
+    EXPECT_TRUE(v3.end() == rtw::binary_search(v3.begin(), v3.end(), Data{ 2, 3 }, Op()));
 }
 
 TEST_F(BinarySearchTest, Duplicate)
