@@ -6,7 +6,7 @@
 namespace rtw {
 
 template<typename ForwardIterator, typename T>
-constexpr bool binary_search(ForwardIterator first, ForwardIterator last, const T& value)
+constexpr ForwardIterator binary_search(ForwardIterator first, ForwardIterator last, const T& value)
 {
     using DifferenceType = typename std::iterator_traits<ForwardIterator>::difference_type;
     DifferenceType distance = std::distance(first, last);
@@ -23,11 +23,11 @@ constexpr bool binary_search(ForwardIterator first, ForwardIterator last, const 
             distance = half;
         }
     }
-    return first != last && !(value < *first);
+    return first != last && !(value < *first) ? first : last;
 }
 
 template<typename ForwardIterator, typename T, typename Compare>
-constexpr bool binary_search(ForwardIterator first, ForwardIterator last, const T& value, Compare compare)
+constexpr ForwardIterator binary_search(ForwardIterator first, ForwardIterator last, const T& value, Compare compare)
 {
     using DifferenceType = typename std::iterator_traits<ForwardIterator>::difference_type;
     DifferenceType distance = std::distance(first, last);
@@ -44,7 +44,7 @@ constexpr bool binary_search(ForwardIterator first, ForwardIterator last, const 
             distance = half;
         }
     }
-    return first != last && !(compare(value, *first));
+    return first != last && !(compare(value, *first)) ? first : last;
 }
 
 } // namespace rtw
