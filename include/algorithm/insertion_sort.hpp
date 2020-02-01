@@ -35,7 +35,7 @@ template<typename BidirectionalIterator>
 constexpr void insertion_sort(BidirectionalIterator first, BidirectionalIterator last)
 {
     using ValueType = typename std::iterator_traits<BidirectionalIterator>::value_type;
-    insertion_sort(first, last, std::less<ValueType>());
+    rtw::insertion_sort(first, last, std::less<ValueType>());
 }
 
 } // namespace rtw
