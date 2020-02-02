@@ -2,6 +2,7 @@
 #define RTW_INSERTION_SORT_HPP
 
 #include <iterator>
+#include <algorithm>
 
 namespace rtw {
 

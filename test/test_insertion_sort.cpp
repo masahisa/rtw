@@ -21,7 +21,7 @@ TEST_F(InsertionSortTest, CStyleArray)
     EXPECT_TRUE(std::is_sorted(a, a + 5));
 }
 
-TEST_F(InsertionSortTest, RandomAccessIteratorLess)
+TEST_F(InsertionSortTest, RandomAccessIterator)
 {
     std::array<int, 5> a{ 4, 1, 3, 5, 2 };
     rtw::insertion_sort(a.begin(), a.end());
