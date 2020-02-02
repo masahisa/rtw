@@ -29,10 +29,10 @@ RandomAccessIterator partition(RandomAccessIterator first, RandomAccessIterator 
 template<typename RandomAccessIterator, typename Compare>
 constexpr void quick_sort(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
 {
-    if(last - first > 1){
+    while(last - first > 1){
         RandomAccessIterator cut = rtw::partition(first, last, compare);
-        rtw::quick_sort(first, cut, compare);
         rtw::quick_sort(cut, last, compare);
+        last = cut;
     }
 }
 
