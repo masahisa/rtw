@@ -13,6 +13,40 @@ protected:
     virtual void TearDown() override {}
 };
 
+TEST_F(QuickSortTest, MoveMedianToFirst)
+{
+    // a < b < c
+    int a1[5] = { 1, 2, 3, 4, 5 };
+    rtw::move_median_to_first(a1, a1, a1 + 2, a1 + 4, std::less<int>());
+    int e[5] = { 3, 2, 1, 4, 5 };
+    EXPECT_TRUE(std::equal(a1, a1 + 5, e));
+
+    // a < c < b
+    int a2[5] = { 1, 2, 3, 4, 5 };
+    rtw::move_median_to_first(a2, a2, a2 + 4, a2 + 2, std::less<int>());
+    EXPECT_TRUE(std::equal(a2, a2 + 5, e));
+
+    // b < a < c
+    int a3[5] = { 1, 2, 3, 4, 5 };
+    rtw::move_median_to_first(a3, a3 + 2, a3, a3 + 4, std::less<int>());
+    EXPECT_TRUE(std::equal(a3, a3 + 5, e));
+
+    // b < c < a
+    int a4[5] = { 1, 2, 3, 4, 5 };
+    rtw::move_median_to_first(a4, a4 + 4, a4, a4 + 2, std::less<int>());
+    EXPECT_TRUE(std::equal(a4, a4 + 5, e));
+
+    // c < a < b
+    int a5[5] = { 1, 2, 3, 4, 5 };
+    rtw::move_median_to_first(a5, a5 + 2, a5 + 4, a5, std::less<int>());
+    EXPECT_TRUE(std::equal(a5, a5 + 5, e));
+
+    // c < b < a
+    int a6[5] = { 1, 2, 3, 4, 5 };
+    rtw::move_median_to_first(a6, a6 + 4, a6 + 2, a6, std::less<int>());
+    EXPECT_TRUE(std::equal(a6, a6 + 5, e));
+}
+
 TEST_F(QuickSortTest, Partition)
 {
     int a[12] = { 13, 19, 9, 5, 12, 8, 7, 4, 11, 2, 6, 21 };
@@ -22,6 +56,30 @@ TEST_F(QuickSortTest, Partition)
         EXPECT_TRUE(*p <= pivot);
     }
     for(int* p = cut; p != a + 12; p++){
+        EXPECT_TRUE(*p >= pivot);
+    }
+}
+
+TEST_F(QuickSortTest, PartitionPivot)
+{
+    int a[12] = { 13, 19, 9, 5, 12, 8, 7, 4, 11, 2, 6, 21 };
+    int pivot = a[0];
+    int* cut = rtw::partition_pivot(a, a + 12, std::less<int>());
+    for(int* p = a; p != cut; p++){
+        EXPECT_TRUE(*p <= pivot);
+    }
+    for(int* p = cut; p != a + 12; p++){
+        EXPECT_TRUE(*p >= pivot);
+    }
+
+    // size is 2
+    int a2[2] = { 2, 3 };
+    cut = rtw::partition_pivot(a2, a2 + 2, std::less<int>());
+    pivot = a2[0];
+    for(int* p = a2; p != cut; p++){
+        EXPECT_TRUE(*p <= pivot);
+    }
+    for(int* p = cut; p != a2 + 2; p++){
         EXPECT_TRUE(*p >= pivot);
     }
 }

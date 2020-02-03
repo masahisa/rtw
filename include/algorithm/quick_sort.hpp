@@ -5,8 +5,33 @@
 
 namespace rtw {
 
+template<typename Iterator, typename Compare>
+void move_median_to_first(Iterator result, Iterator a, Iterator b, Iterator c, Compare compare)
+{
+    if(compare(*a, *b)){
+        if(compare(*b, *c)){
+            std::iter_swap(result, b);
+        }
+        else if(compare(*a, *c)){
+            std::iter_swap(result, c);
+        }
+        else{
+            std::iter_swap(result, a);
+        }
+    }
+    else if(compare(*a, *c)){
+        std::iter_swap(result, a);
+    }
+    else if(compare(*b, *c)){
+        std::iter_swap(result, c);
+    }
+    else{
+        std::iter_swap(result, b);
+    }
+}
+
 template<typename RandomAccessIterator, typename Compare>
-RandomAccessIterator partition(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
+constexpr RandomAccessIterator partition(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
 {
     using ValueType = typename std::iterator_traits<RandomAccessIterator>::value_type;
     ValueType pivot = *first;
@@ -27,10 +52,18 @@ RandomAccessIterator partition(RandomAccessIterator first, RandomAccessIterator 
 }
 
 template<typename RandomAccessIterator, typename Compare>
+constexpr RandomAccessIterator partition_pivot(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
+{
+    RandomAccessIterator middle = first + (last - first) / 2;
+    rtw::move_median_to_first(first, first, middle, last - 1, compare);
+    return rtw::partition(first, last, compare);
+}
+
+template<typename RandomAccessIterator, typename Compare>
 constexpr void quick_sort(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
 {
     while(last - first > 1){
-        RandomAccessIterator cut = rtw::partition(first, last, compare);
+        RandomAccessIterator cut = rtw::partition_pivot(first, last, compare);
         rtw::quick_sort(cut, last, compare);
         last = cut;
     }
