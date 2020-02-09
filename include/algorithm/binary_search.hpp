@@ -1,5 +1,5 @@
-#ifndef RTW_BINARY_SEARCH
-#define RTW_BINARY_SEARCH
+#ifndef RTW_BINARY_SEARCH_HPP
+#define RTW_BINARY_SEARCH_HPP
 
 #include <iterator>
 
@@ -35,4 +35,4 @@ constexpr ForwardIterator binary_search(ForwardIterator first, ForwardIterator l
 
 } // namespace rtw
 
-#endif // RTW_BINARY_SEARCH
+#endif // RTW_BINARY_SEARCH_HPP

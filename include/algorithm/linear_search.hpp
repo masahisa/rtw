@@ -1,5 +1,5 @@
-#ifndef RTW_LINEAR_SEARCH
-#define RTW_LINEAR_SEARCH
+#ifndef RTW_LINEAR_SEARCH_HPP
+#define RTW_LINEAR_SEARCH_HPP
 
 namespace rtw {
 
@@ -29,4 +29,4 @@ constexpr InputIterator linear_search_if(InputIterator first, InputIterator last
 
 } // namespace rtw
 
-#endif // RTW_LINEAR_SEARCH
+#endif // RTW_LINEAR_SEARCH_HPP
