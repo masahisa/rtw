@@ -4,6 +4,7 @@
 #include <array>
 #include <vector>
 #include <deque>
+#include <random>
 
 class QuickSortTest : public ::testing::Test{
 protected:
@@ -131,6 +132,21 @@ TEST_F(QuickSortTest, Duplicate)
 TEST_F(QuickSortTest, AlreadySorted)
 {
     std::vector<int> v{ 1, 2, 3, 4, 5 };
+    rtw::quick_sort(v.begin(), v.end());
+    EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
+}
+
+TEST_F(QuickSortTest, Random)
+{
+    std::random_device rnd;
+    std::mt19937 mt(rnd());
+    
+    static const int size = 1000;
+    std::vector<int> v(size);
+    for(int i = 0; i < size; i++){
+        v[i] = mt();
+    }
+
     rtw::quick_sort(v.begin(), v.end());
     EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
 }

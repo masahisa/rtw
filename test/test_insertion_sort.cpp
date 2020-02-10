@@ -5,6 +5,7 @@
 #include <vector>
 #include <deque>
 #include <list>
+#include <random>
 
 class InsertionSortTest : public ::testing::Test{
 protected:
@@ -70,4 +71,19 @@ TEST_F(InsertionSortTest, Compare)
     std::list<int> l{ 6, 4, 1, 3, 5, 2 };
     rtw::insertion_sort(l.begin(), l.end(), std::greater<int>());
     EXPECT_TRUE(std::is_sorted(l.begin(), l.end(), std::greater<int>()));
+}
+
+TEST_F(InsertionSortTest, Random)
+{
+    std::random_device rnd;
+    std::mt19937 mt(rnd());
+    
+    static const int size = 1000;
+    std::vector<int> v(size);
+    for(int i = 0; i < size; i++){
+        v[i] = mt();
+    }
+
+    rtw::insertion_sort(v.begin(), v.end());
+    EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
 }
