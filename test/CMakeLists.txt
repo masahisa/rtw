@@ -10,6 +10,7 @@ add_executable(
     "test_binary_search.cpp"
     "test_insertion_sort.cpp"
     "test_linear_search.cpp"
+    "test_merge_sort.cpp"
     "test_quick_sort.cpp"
 )
 
