@@ -44,6 +44,21 @@ TEST_F(InsertionSortTest, BidirectionalIterator)
     EXPECT_TRUE(std::is_sorted(l.begin(), l.end()));
 }
 
+TEST_F(InsertionSortTest, Compare)
+{
+    int a[5] = { 4, 1, 3, 5, 2 };
+    rtw::insertion_sort(a, a + 5, std::greater<int>());
+    EXPECT_TRUE(std::is_sorted(a, a + 5, std::greater<int>()));
+
+    std::vector<int> v{ 6, 4, 1, 3, 5, 2 };
+    rtw::insertion_sort(v.begin(), v.end(), std::greater<int>());
+    EXPECT_TRUE(std::is_sorted(v.begin(), v.end(), std::greater<int>()));
+
+    std::list<int> l{ 6, 4, 1, 3, 5, 2 };
+    rtw::insertion_sort(l.begin(), l.end(), std::greater<int>());
+    EXPECT_TRUE(std::is_sorted(l.begin(), l.end(), std::greater<int>()));
+}
+
 TEST_F(InsertionSortTest, Duplicate)
 {
     std::vector<int> v{ 2, 1, 2, 5, 2 };
@@ -58,19 +73,19 @@ TEST_F(InsertionSortTest, AlreadySorted)
     EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
 }
 
-TEST_F(InsertionSortTest, Compare)
+TEST_F(InsertionSortTest, SmallSize)
 {
-    int a[5] = { 4, 1, 3, 5, 2 };
-    rtw::insertion_sort(a, a + 5, std::greater<int>());
-    EXPECT_TRUE(std::is_sorted(a, a + 5, std::greater<int>()));
+    std::vector<int> v0{  };
+    rtw::insertion_sort(v0.begin(), v0.end());
+    EXPECT_TRUE(std::is_sorted(v0.begin(), v0.end()));
 
-    std::vector<int> v{ 6, 4, 1, 3, 5, 2 };
-    rtw::insertion_sort(v.begin(), v.end(), std::greater<int>());
-    EXPECT_TRUE(std::is_sorted(v.begin(), v.end(), std::greater<int>()));
+    std::vector<int> v1{ 1 };
+    rtw::insertion_sort(v1.begin(), v1.end());
+    EXPECT_TRUE(std::is_sorted(v1.begin(), v1.end()));
 
-    std::list<int> l{ 6, 4, 1, 3, 5, 2 };
-    rtw::insertion_sort(l.begin(), l.end(), std::greater<int>());
-    EXPECT_TRUE(std::is_sorted(l.begin(), l.end(), std::greater<int>()));
+    std::vector<int> v2{ 2, 1 };
+    rtw::insertion_sort(v2.begin(), v2.end());
+    EXPECT_TRUE(std::is_sorted(v2.begin(), v2.end()));
 }
 
 TEST_F(InsertionSortTest, Random)

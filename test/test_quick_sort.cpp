@@ -136,6 +136,21 @@ TEST_F(QuickSortTest, AlreadySorted)
     EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
 }
 
+TEST_F(QuickSortTest, SmallSize)
+{
+    std::vector<int> v0{  };
+    rtw::quick_sort(v0.begin(), v0.end());
+    EXPECT_TRUE(std::is_sorted(v0.begin(), v0.end()));
+
+    std::vector<int> v1{ 1 };
+    rtw::quick_sort(v1.begin(), v1.end());
+    EXPECT_TRUE(std::is_sorted(v1.begin(), v1.end()));
+
+    std::vector<int> v2{ 2, 1 };
+    rtw::quick_sort(v2.begin(), v2.end());
+    EXPECT_TRUE(std::is_sorted(v2.begin(), v2.end()));
+}
+
 TEST_F(QuickSortTest, Random)
 {
     std::random_device rnd;

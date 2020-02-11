@@ -60,9 +60,24 @@ TEST_F(MergeSortTest, Duplicate)
 
 TEST_F(MergeSortTest, AlreadySorted)
 {
-    std::vector<int> v{ 1, 2, 3, 4 };
+    std::vector<int> v{ 1, 2, 3, 4, 5 };
     rtw::merge_sort(v.begin(), v.end());
     EXPECT_TRUE(std::is_sorted(v.begin(), v.end()));
+}
+
+TEST_F(MergeSortTest, SmallSize)
+{
+    std::vector<int> v0{  };
+    rtw::merge_sort(v0.begin(), v0.end());
+    EXPECT_TRUE(std::is_sorted(v0.begin(), v0.end()));
+
+    std::vector<int> v1{ 1 };
+    rtw::merge_sort(v1.begin(), v1.end());
+    EXPECT_TRUE(std::is_sorted(v1.begin(), v1.end()));
+
+    std::vector<int> v2{ 2, 1 };
+    rtw::merge_sort(v2.begin(), v2.end());
+    EXPECT_TRUE(std::is_sorted(v2.begin(), v2.end()));
 }
 
 TEST_F(MergeSortTest, Random)
