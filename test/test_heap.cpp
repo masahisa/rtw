@@ -14,6 +14,34 @@ protected:
     virtual void TearDown() override {}
 };
 
+TEST_F(HeapTest, SetHeapKey)
+{
+    std::vector<int> v1{ 5, 4, 1, 3, 2 };
+    EXPECT_TRUE(rtw::set_heap_key(v1.begin(), v1.begin() + 3, 6));
+    EXPECT_TRUE(std::is_heap(v1.begin(), v1.end()));
+
+    std::vector<int> v2{ 5, 4, 1, 3, 2 };
+    EXPECT_FALSE(rtw::set_heap_key(v2.begin(), v2.begin() + 3, 0));
+    EXPECT_TRUE(std::is_heap(v2.begin(), v2.end()));
+}
+
+TEST_F(HeapTest, PushHeap)
+{
+    std::vector<int> v{ 4, 3, 1, 5, 2 };
+    rtw::make_heap(v.begin(), v.end());
+    v.push_back(6);
+    rtw::push_heap(v.begin(), v.end());
+    EXPECT_TRUE(std::is_heap(v.begin(), v.end()));
+}
+
+TEST_F(HeapTest, PopHeap)
+{
+    std::vector<int> v{ 4, 3, 1, 5, 2 };
+    rtw::make_heap(v.begin(), v.end());
+    rtw::pop_heap(v.begin(), v.end());
+    EXPECT_TRUE(std::is_heap(v.begin(), std::prev(v.end())));
+}
+
 TEST_F(HeapTest, CStypeArray)
 {
     int a[5] = { 4, 3, 1, 5, 2 };
