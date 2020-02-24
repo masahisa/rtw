@@ -49,12 +49,15 @@ constexpr void make_heap(RandomAccessIterator first, RandomAccessIterator last)
 template<typename RandomAccessIterator, typename Compare>
 inline void __set_heap_key_impl(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
 {
+    using ValueType = typename std::iterator_traits<RandomAccessIterator>::value_type;
+    ValueType value = *last;
     RandomAccessIterator parent = first + (last - first - 1) / 2;
     while(first < last && compare(*parent, *last)){
-        std::iter_swap(parent, last);
+        *last = std::move(*parent);
         last = parent;
         parent = first + (last - first - 1) / 2;
     }
+    *parent = value;
 }
 
 template<typename RandomAccessIterator, typename T, typename Compare>
