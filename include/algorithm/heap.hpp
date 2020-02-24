@@ -46,6 +46,17 @@ constexpr void make_heap(RandomAccessIterator first, RandomAccessIterator last)
     rtw::make_heap(first, last, std::less<ValueType>());
 }
 
+template<typename RandomAccessIterator, typename Compare>
+inline void __set_heap_key_impl(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
+{
+    RandomAccessIterator parent = first + (last - first - 1) / 2;
+    while(first < last && compare(*parent, *last)){
+        std::iter_swap(parent, last);
+        last = parent;
+        parent = first + (last - first - 1) / 2;
+    }
+}
+
 template<typename RandomAccessIterator, typename T, typename Compare>
 constexpr bool set_heap_key(RandomAccessIterator first, RandomAccessIterator node, T value, Compare compare)
 {
@@ -53,12 +64,7 @@ constexpr bool set_heap_key(RandomAccessIterator first, RandomAccessIterator nod
         return false;
     }
     *node = value;
-    RandomAccessIterator parent = first + (node - first - 1) / 2;
-    while(first < node && compare(*parent, *node)){
-        std::iter_swap(parent, node);
-        node = parent;
-        parent = first + (node - first - 1) / 2;
-    }
+    rtw::__set_heap_key_impl(first, node, compare);
     return true;
 }
 
@@ -73,12 +79,7 @@ template<typename RandomAccessIterator, typename Compare>
 constexpr void push_heap(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
 {
     --last;
-    RandomAccessIterator parent = first + (last - first - 1) / 2;
-    while(first < last && compare(*parent, *last)){
-        std::iter_swap(parent, last);
-        last = parent;
-        parent = first + (last - first - 1) / 2;
-    }
+    rtw::__set_heap_key_impl(first, last, compare);
 }
 
 template<typename RandomAccessIterator>
