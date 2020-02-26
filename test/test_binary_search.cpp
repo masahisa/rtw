@@ -86,3 +86,12 @@ TEST_F(BinarySearchTest, Duplicate)
     EXPECT_TRUE(v1.begin() + 1 == rtw::binary_search(v1.begin(), v1.end(), 2));
     EXPECT_TRUE(v1.begin() + 1 == rtw::binary_search(v1.begin(), v1.end(), 2, std::less<int>()));
 }
+
+TEST_F(BinarySearchTest, SmallSize)
+{
+    std::vector<int> v0{  };
+    EXPECT_TRUE(v0.end() == rtw::binary_search(v0.begin(), v0.end(), 0));
+
+    std::vector<int> v1{ 1 };
+    EXPECT_TRUE(v1.begin() == rtw::binary_search(v1.begin(), v1.end(), 1));
+}

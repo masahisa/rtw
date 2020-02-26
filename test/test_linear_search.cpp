@@ -87,3 +87,12 @@ TEST_F(LinearSearchTest, Predicate)
     EXPECT_TRUE(v2.begin() + 1 == rtw::linear_search_if(v2.begin(), v2.end(), Op1()));
     EXPECT_TRUE(v2.end() == rtw::linear_search_if(v2.begin(), v2.end(), Op2()));
 }
+
+TEST_F(LinearSearchTest, SmallSize)
+{
+    std::vector<int> v0{  };
+    EXPECT_TRUE(v0.end() == rtw::linear_search(v0.begin(), v0.end(), 0));
+
+    std::vector<int> v1{ 1 };
+    EXPECT_TRUE(v1.begin() == rtw::linear_search(v1.begin(), v1.end(), 1));
+}
