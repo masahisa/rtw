@@ -1,6 +1,24 @@
 # Reinventing the wheel
 
-This is a minimal C++ template library, named rtw (reinventing the wheel).
+This is a minimal STL-like C++ template library, named rtw (reinventing the wheel).
+
+## List of Algorithms
+
+This library includes these algorithms listed as follows.
+
+- Sorting Algorithm
+  - insertion sort
+  - heap sort
+  - merge sort
+  - quick sort
+- Search Algorithm
+  - linear search
+  - binary search
+- Order Statistics
+  - min element
+  - max element
+  - minmax element
+  - nth element
 
 ## Project Structure
 
