@@ -11,7 +11,11 @@ add_executable(
     "test_heap.cpp"
     "test_insertion_sort.cpp"
     "test_linear_search.cpp"
+    "test_max_element.cpp"
     "test_merge_sort.cpp"
+    "test_min_element.cpp"
+    "test_minmax_element.cpp"
+    "test_nth_element.cpp"
     "test_quick_sort.cpp"
 )
 
