@@ -34,6 +34,19 @@ TEST_F(HeapTest, PushHeap)
     EXPECT_TRUE(std::is_heap(v.begin(), v.end()));
 }
 
+TEST_F(HeapTest, SequentialPushHeap)
+{
+    std::vector<int> v;
+    v.push_back(1);
+    rtw::push_heap(v.begin(), v.end());
+    v.push_back(3);
+    rtw::push_heap(v.begin(), v.end());
+    v.push_back(2);
+    rtw::push_heap(v.begin(), v.end());
+    EXPECT_TRUE(std::is_heap(v.begin(), v.end()));
+    EXPECT_EQ(3, v.front());
+}
+
 TEST_F(HeapTest, PopHeap)
 {
     std::vector<int> v{ 4, 3, 1, 5, 2 };
