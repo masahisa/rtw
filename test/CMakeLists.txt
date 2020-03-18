@@ -16,6 +16,7 @@ add_executable(
     "test_min_element.cpp"
     "test_minmax_element.cpp"
     "test_nth_element.cpp"
+    "test_priority_queue.cpp"
     "test_quick_sort.cpp"
 )
 

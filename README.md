@@ -2,9 +2,9 @@
 
 This is a minimal STL-like C++ template library, named rtw (reinventing the wheel).
 
-## List of Algorithms
+## List of Algorithms and Containers
 
-This library includes these algorithms listed as follows.
+This library includes these algorithms and containers listed as follows.
 
 - Sorting Algorithm
   - insertion sort
@@ -19,6 +19,8 @@ This library includes these algorithms listed as follows.
   - max element
   - minmax element
   - nth element
+- Container
+  - priority queue
 
 ## Project Structure
 
@@ -38,6 +40,8 @@ rtw/
         doxygen/
     include/
         algorithm/
+            *.hpp
+        container/
             *.hpp
     lib/
     src/
