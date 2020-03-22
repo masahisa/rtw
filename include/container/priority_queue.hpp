@@ -43,8 +43,8 @@ public:
         rtw::make_heap(c.begin(), c.end(), comp);
     }
 
-    priority_queue(const priority_queue& pq) = default;
-    priority_queue(priority_queue&& pq) = default;
+    priority_queue(const priority_queue& other) = default;
+    priority_queue(priority_queue&& other) = default;
 
     template<typename Allocator>
     explicit priority_queue(const Allocator& allocator)
@@ -71,14 +71,14 @@ public:
     }
 
     template<typename Allocator>
-    priority_queue(const priority_queue& pq, const Allocator& allocator)
-    : c(pq.c, allocator)
-    , comp(pq.comp){}
+    priority_queue(const priority_queue& other, const Allocator& allocator)
+    : c(other.c, allocator)
+    , comp(other.comp){}
 
     template<typename Allocator>
-    priority_queue(priority_queue&& pq, const Allocator& allocator)
-    : c(std::move(pq.c), allocator)
-    , comp(std::move(pq.comp)){}
+    priority_queue(priority_queue&& other, const Allocator& allocator)
+    : c(std::move(other.c), allocator)
+    , comp(std::move(other.comp)){}
 
     template<typename InputIterator>
     priority_queue(InputIterator first, InputIterator last, const Compare& compare, const Container& container)
@@ -97,20 +97,20 @@ public:
     }
 
     // operator=
-    priority_queue& operator=(const priority_queue& pq) = default;
-    priority_queue& operator=(priority_queue&& pq) = default;
+    priority_queue& operator=(const priority_queue& other) = default;
+    priority_queue& operator=(priority_queue&& other) = default;
 
     // destructor
     ~priority_queue() = default;
 public:
+    const_reference top() const{
+        return c.front();
+    }
     bool empty() const{
         return c.empty();
     }
     size_type size() const{
         return c.size();
-    }
-    const_reference top() const{
-        return c.front();
     }
     void push(const value_type& value){
         c.push_back(value);
@@ -129,16 +129,16 @@ public:
         rtw::pop_heap(c.begin(), c.end(), comp);
         c.pop_back();
     }
-    void swap(priority_queue& pq) noexcept(std::is_nothrow_swappable_v<Container> && std::is_nothrow_swappable_v<Compare>){
+    void swap(priority_queue& other) noexcept(std::is_nothrow_swappable_v<Container> && std::is_nothrow_swappable_v<Compare>){
         using std::swap;
-        swap(c, pq.c);
-        swap(comp, pq.comp);
+        swap(c, other.c);
+        swap(comp, other.comp);
     }
 };
 
 template<typename T, typename Container, typename Compare>
-void swap(rtw::priority_queue<T, Container, Compare>& x, rtw::priority_queue<T, Container, Compare>& y) noexcept(noexcept(x.swap(y))){
-    x.swap(y);
+void swap(rtw::priority_queue<T, Container, Compare>& lhs, rtw::priority_queue<T, Container, Compare>& rhs) noexcept(noexcept(lhs.swap(rhs))){
+    lhs.swap(rhs);
 }
 
 template<typename Compare, typename Container>
