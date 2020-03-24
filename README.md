@@ -21,6 +21,8 @@ This library includes these algorithms and containers listed as follows.
   - nth element
 - Container
   - priority queue
+  - queue
+  - stack
 
 ## Project Structure
 

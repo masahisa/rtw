@@ -106,7 +106,7 @@ public:
     const_reference top() const{
         return c.front();
     }
-    bool empty() const{
+    [[nodiscard]] bool empty() const{
         return c.empty();
     }
     size_type size() const{
@@ -154,7 +154,7 @@ priority_queue(Compare, Container, Allocator)->priority_queue<typename Container
 
 namespace std{
     template<typename T, typename Container, typename Compare, typename Allocator>
-    struct uses_allocator<rtw::priority_queue<T, Container, Compare>, Allocator> : uses_allocator<Container, Allocator>::type{};
+    struct uses_allocator<rtw::priority_queue<T, Container, Compare>, Allocator> : public std::uses_allocator<Container, Allocator>::type{};
 } // namespace std
 
 #endif // RTW_PRIORITY_QUEUE_HPP

@@ -17,7 +17,9 @@ add_executable(
     "test_minmax_element.cpp"
     "test_nth_element.cpp"
     "test_priority_queue.cpp"
+    "test_queue.cpp"
     "test_quick_sort.cpp"
+    "test_stack.cpp"
 )
 
 # target link libraries
