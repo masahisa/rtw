@@ -23,6 +23,7 @@ This library includes these algorithms and containers listed as follows.
   - priority queue
   - queue
   - stack
+  - vector
 
 ## Project Structure
 
