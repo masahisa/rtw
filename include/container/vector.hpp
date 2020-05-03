@@ -249,7 +249,7 @@ private:
     void reallocate(size_type new_capacity){
         pointer const new_begin = allocator_traits::allocate(allocator_, new_capacity);
         size_type old_size = size();
-        std::move(begin_, end_, new_begin);
+        std::uninitialized_move(begin_, end_, new_begin);
         rtw::destroy(allocator_, begin_, end_);
         allocator_traits::deallocate(allocator_, begin_, capacity());
         begin_ = new_begin;
@@ -278,9 +278,9 @@ private:
         size_type position_distance = size_type(position - cbegin());
         pointer const old_position = begin_ + position_distance;
         size_type old_size = size();
-        std::move(begin_, old_position, new_begin);
+        std::uninitialized_move(begin_, old_position, new_begin);
         allocator_traits::construct(allocator_, new_begin + position_distance, std::forward<Args>(args)...);
-        std::move(old_position, end_, new_begin + position_distance + 1);
+        std::uninitialized_move(old_position, end_, new_begin + position_distance + 1);
         rtw::destroy(allocator_, begin_, end_);
         allocator_traits::deallocate(allocator_, begin_, capacity());
         begin_ = new_begin;
@@ -477,9 +477,9 @@ public:
             if(new_size > capacity()){
                 pointer const new_begin = allocator_traits::allocate(allocator_, new_size);
                 pointer const old_position = begin_ + position_distance;
-                std::move(begin_, old_position, new_begin);
+                std::uninitialized_move(begin_, old_position, new_begin);
                 rtw::construct(allocator_, new_begin + position_distance, new_begin + position_distance + count, value);
-                std::move(old_position, end_, new_begin + position_distance + count);
+                std::uninitialized_move(old_position, end_, new_begin + position_distance + count);
                 rtw::destroy(allocator_, begin_, end_);
                 allocator_traits::deallocate(allocator_, begin_, capacity());
                 begin_ = new_begin;
