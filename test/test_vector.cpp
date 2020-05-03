@@ -381,10 +381,48 @@ TEST_F(VectorTest, InsertIterator)
     for(int i = 0; i < static_cast<int>(c.size()); i++){
         c[i] = i;
     }
+    c.reserve(8);
+    int data[] = { 4, 5, 6, 7, 8, 9, 10, 11 };
+    rtw::vector<int>::iterator rit1 = c.insert(c.begin() + 2, data, data + 4);
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(8, c.capacity());
+    EXPECT_EQ(8, c.size());
+    int data1[] = { 0, 1, 4, 5, 6, 7, 2, 3 };
+    EXPECT_EQ(0, std::memcmp(data1, c.data(), c.size() * sizeof(int)));
+    EXPECT_EQ(4, *rit1);
     
+    rtw::vector<int>::iterator rit2 = c.insert(c.begin() + 6, data + 4, data + 8);
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(12, c.capacity());
+    EXPECT_EQ(12, c.size());
+    int data2[] = { 0, 1, 4, 5, 6, 7, 8, 9, 10, 11, 2, 3 };
+    EXPECT_EQ(0, std::memcmp(data2, c.data(), c.size() * sizeof(int)));
+    EXPECT_EQ(8, *rit2);
+}
 
-
+TEST_F(VectorTest, InsertInitializerList)
+{
+    rtw::vector<int> c(4);
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        c[i] = i;
+    }
+    c.reserve(8);
+    std::initializer_list<int> data = { 4, 5, 6, 7 };
+    rtw::vector<int>::iterator rit1 = c.insert(c.begin() + 2, data);
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(8, c.capacity());
+    EXPECT_EQ(8, c.size());
+    int data1[] = { 0, 1, 4, 5, 6, 7, 2, 3 };
+    EXPECT_EQ(0, std::memcmp(data1, c.data(), c.size() * sizeof(int)));
+    EXPECT_EQ(4, *rit1);
     
+    rtw::vector<int>::iterator rit2 = c.insert(c.begin() + 6, { 8, 9, 10, 11 });
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(12, c.capacity());
+    EXPECT_EQ(12, c.size());
+    int data2[] = { 0, 1, 4, 5, 6, 7, 8, 9, 10, 11, 2, 3 };
+    EXPECT_EQ(0, std::memcmp(data2, c.data(), c.size() * sizeof(int)));
+    EXPECT_EQ(8, *rit2);
 }
 
 TEST_F(VectorTest, Emplace)

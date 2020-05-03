@@ -472,7 +472,6 @@ public:
     iterator insert(const_iterator position, size_type count, const T& value){
         size_type position_distance = size_type(position - cbegin());
         size_type new_size = size() + count;
-        pointer const pointer_position = begin_ + position_distance;
         if(count != 0){
             if(new_size > capacity()){
                 pointer const new_begin = allocator_traits::allocate(allocator_, new_size);
@@ -487,6 +486,7 @@ public:
                 capacity_ = end_;
             }
             else{
+                pointer const pointer_position = begin_ + position_distance;
                 std::copy_backward(pointer_position, end_, end_ + count);
                 std::fill(pointer_position, pointer_position + count, value);
                 end_ += count;
@@ -495,8 +495,36 @@ public:
         return begin() + position_distance;
     }
     template<typename InputIterator, typename = std::enable_if_t<std::is_convertible_v<typename std::iterator_traits<InputIterator>::iterator_category, std::input_iterator_tag>>>
-    iterator insert(const_iterator position, InputIterator first, InputIterator last);
-    iterator insert(const_iterator position, std::initializer_list<T> ilist);
+    iterator insert(const_iterator position, InputIterator first, InputIterator last){
+        size_type count = size_type(last - first);
+        size_type position_distance = size_type(position - cbegin());
+        size_type new_size = size() + count;
+        if(count != 0){
+            if(new_size > capacity()){
+                pointer const new_begin = allocator_traits::allocate(allocator_, new_size);
+                pointer const old_position = begin_ + position_distance;
+                pointer const new_position = new_begin + position_distance;
+                std::uninitialized_move(begin_, old_position, new_begin);
+                std::uninitialized_copy(first, last, new_position);
+                std::uninitialized_move(old_position, end_, new_position + count);
+                rtw::destroy(allocator_, begin_, end_);
+                allocator_traits::deallocate(allocator_, begin_, capacity());
+                begin_ = new_begin;
+                end_ = begin_ + new_size;
+                capacity_ = end_;
+            }
+            else{
+                pointer const pointer_position = begin_ + position_distance;
+                std::copy_backward(pointer_position, end_, end_ + count);
+                std::copy(first, last, pointer_position);
+                end_ += count;
+            }
+        }
+        return begin() + position_distance;
+    }
+    iterator insert(const_iterator position, std::initializer_list<T> ilist){
+        return insert(position, ilist.begin(), ilist.end());
+    }
     template<typename... Args>
     iterator emplace(const_iterator position, Args&&... args){
         size_type position_distance = size_type(position - cbegin());
