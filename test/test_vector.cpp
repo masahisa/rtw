@@ -617,3 +617,31 @@ TEST_F(VectorTest, PopBack)
         EXPECT_EQ(i, c[i]);
     }
 }
+
+TEST_F(VectorTest, FunctionTemplateErase)
+{
+    rtw::vector<int> c(4);
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        c[i] = i;
+    }
+    rtw::erase(c, 2);
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(4, c.capacity());
+    EXPECT_EQ(3, c.size());
+    int data[] = { 0, 1, 3 };
+    EXPECT_EQ(0, std::memcmp(data, c.data(), c.size() * sizeof(int)));
+}
+
+TEST_F(VectorTest, FunctionTemplateEraseIf)
+{
+    rtw::vector<int> c(4);
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        c[i] = i;
+    }
+    rtw::erase_if(c, [](int value) -> bool { return value % 2 == 1; });
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(4, c.capacity());
+    EXPECT_EQ(2, c.size());
+    int data[] = { 0, 2 };
+    EXPECT_EQ(0, std::memcmp(data, c.data(), c.size() * sizeof(int)));
+}

@@ -607,9 +607,13 @@ template<typename T, typename Allocator>
 void swap(vector<T, Allocator>& lhs, vector<T, Allocator>& rhs) noexcept(noexcept(lhs.swap(rhs)));
 
 template<typename T, typename Allocator, typename U>
-void erase(vector<T, Allocator>& container, const U& value);
+void erase(vector<T, Allocator>& container, const U& value){
+    container.erase(std::remove(container.begin(), container.end(), value), container.end());
+}
 template<typename T, typename Allocator, typename Predicate>
-void erase_if(vector<T, Allocator>& container, Predicate predicate);
+void erase_if(vector<T, Allocator>& container, Predicate predicate){
+    container.erase(std::remove_if(container.begin(), container.end(), predicate), container.end());
+}
 
 template<typename InputIterator, typename Allocator = std::allocator<typename std::iterator_traits<InputIterator>::value_type>>
 vector(InputIterator, InputIterator, Allocator = Allocator()) -> vector<typename std::iterator_traits<InputIterator>::value_type, Allocator>;
