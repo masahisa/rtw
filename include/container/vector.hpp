@@ -250,7 +250,7 @@ private:
         pointer const new_begin = allocator_traits::allocate(allocator_, new_capacity);
         size_type old_size = size();
         std::uninitialized_move(begin_, end_, new_begin);
-        rtw::destroy(allocator_, begin_, end_);
+        std::destroy(begin_, end_);
         allocator_traits::deallocate(allocator_, begin_, capacity());
         begin_ = new_begin;
         end_ = begin_ + old_size;
