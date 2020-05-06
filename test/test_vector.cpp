@@ -68,6 +68,16 @@ TEST_F(VectorTest, ConstructorWithSizeAndLvalueAllocator)
     }
 }
 
+TEST_F(VectorTest, ConstructorWithIteratorAndLvalueAllocator)
+{
+    int data[] = { 0, 1, 2, 3 };
+    std::allocator<int> allocator;
+    rtw::vector<int> c(data, data + 4, allocator);
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        EXPECT_EQ(data[i], c[i]);
+    }
+}
+
 TEST_F(VectorTest, ConstructorWithLvalueVector)
 {
     rtw::vector<int> other(4);

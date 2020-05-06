@@ -321,7 +321,17 @@ public:
         resize(count);
     }
     template<typename InputIterator, typename = std::enable_if_t<std::is_convertible_v<typename std::iterator_traits<InputIterator>::iterator_category, std::input_iterator_tag>>>
-    vector(InputIterator first, InputIterator last, const Allocator& allocator = Allocator());
+    vector(InputIterator first, InputIterator last, const Allocator& allocator = Allocator())
+    : allocator_(allocator)
+    , begin_(nullptr)
+    , end_(nullptr)
+    , capacity_(nullptr){
+        size_type count = size_type(last - first);
+        begin_ = allocator_traits::allocate(allocator_, count);
+        std::uninitialized_copy(first, last, begin_);
+        capacity_ = begin_ + count;
+        end_ = begin_ + count;
+    }
     vector(const vector& other)
     : allocator_(other.get_allocator())
     , begin_(nullptr)
