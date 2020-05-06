@@ -418,6 +418,9 @@ public:
         }
         end_ = begin_ + count;
     }
+    void assign(std::initializer_list<T> ilist){
+        assign(ilist.begin(), ilist.end());
+    }
     // get_allocator
     allocator_type get_allocator() const{
         return allocator_;
