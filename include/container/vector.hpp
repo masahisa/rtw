@@ -259,7 +259,7 @@ private:
     template<typename... Args>
     void resize_impl(size_type count, Args&&... args){
         if(count < size()){
-            rtw::destroy(allocator_, begin_ + count, end_);
+            std::destroy(begin_ + count, end_);
             end_ = begin_ + count;
         }
         else if(count > size()){
@@ -281,7 +281,7 @@ private:
         std::uninitialized_move(begin_, old_position, new_begin);
         allocator_traits::construct(allocator_, new_begin + position_distance, std::forward<Args>(args)...);
         std::uninitialized_move(old_position, end_, new_begin + position_distance + 1);
-        rtw::destroy(allocator_, begin_, end_);
+        std::destroy(begin_, end_);
         allocator_traits::deallocate(allocator_, begin_, capacity());
         begin_ = new_begin;
         end_ = begin_ + old_size + 1;
@@ -357,7 +357,7 @@ public:
     vector(std::initializer_list<T> ilist, const Allocator& allocator = Allocator());
     // destructor
     ~vector(){
-        rtw::destroy(allocator_, begin_, end_);
+        std::destroy(begin_, end_);
         allocator_traits::deallocate(allocator_, begin_, capacity());
     }
     // operator=
@@ -374,14 +374,14 @@ public:
             if(other_size > capacity()){
                 pointer const new_begin = allocator_traits::allocate(allocator_, other_size);
                 std::uninitialized_copy(other.begin(), other.end(), new_begin);
-                rtw::destroy(allocator_, begin_, end_);
+                std::destroy(begin_, end_);
                 allocator_traits::deallocate(allocator_, begin_, capacity());
                 begin_ = new_begin;
                 capacity_ = begin_ + other_size;
             }
             else if(size() >= other_size){
                 std::copy(other.begin(), other.end(), begin());
-                rtw::destroy(allocator_, begin_ + other_size, end_);
+                std::destroy(begin_ + other_size, end_);
             }
             else{
                 std::copy(other.begin(), other.begin() + size(), begin());
@@ -401,14 +401,14 @@ public:
         if(count > capacity()){
             pointer const new_begin = allocator_traits::allocate(allocator_, count);
             std::uninitialized_fill_n(new_begin, count, value);
-            rtw::destroy(allocator_, begin_, end_);
+            std::destroy(begin_, end_);
             allocator_traits::deallocate(allocator_, begin_, capacity());
             begin_ = new_begin;
             capacity_ = begin_ + count;
         }
         else if(size() >= count){
             std::fill_n(begin_, count, value);
-            rtw::destroy(allocator_, begin_ + count, end_);
+            std::destroy(begin_ + count, end_);
         }
         else{
             std::fill_n(begin_, size(), value);
@@ -422,14 +422,14 @@ public:
         if(count > capacity()){
             pointer const new_begin = allocator_traits::allocate(allocator_, count);
             std::uninitialized_copy(first, last, new_begin);
-            rtw::destroy(allocator_, begin_, end_);
+            std::destroy(begin_, end_);
             allocator_traits::deallocate(allocator_, begin_, capacity());
             begin_ = new_begin;
             capacity_ = begin_ + count;
         }
         else if(size() >= count){
             std::copy(first, last, begin_);
-            rtw::destroy(allocator_, begin_ + count, end_);
+            std::destroy(begin_ + count, end_);
         }
         else{
             std::copy(first , first + size(), begin_);
@@ -544,7 +544,7 @@ public:
     }
     // modifiers
     void clear() noexcept{
-        rtw::destroy(allocator_, begin_, end_);
+        std::destroy(begin_, end_);
         allocator_traits::deallocate(allocator_, begin_, capacity());
         begin_ = nullptr;
         end_ = begin_;
@@ -566,7 +566,7 @@ public:
                 std::uninitialized_move(begin_, old_position, new_begin);
                 rtw::construct(allocator_, new_begin + position_distance, new_begin + position_distance + count, value);
                 std::uninitialized_move(old_position, end_, new_begin + position_distance + count);
-                rtw::destroy(allocator_, begin_, end_);
+                std::destroy(begin_, end_);
                 allocator_traits::deallocate(allocator_, begin_, capacity());
                 begin_ = new_begin;
                 end_ = begin_ + new_size;
@@ -594,7 +594,7 @@ public:
                 std::uninitialized_move(begin_, old_position, new_begin);
                 std::uninitialized_copy(first, last, new_position);
                 std::uninitialized_move(old_position, end_, new_position + count);
-                rtw::destroy(allocator_, begin_, end_);
+                std::destroy(begin_, end_);
                 allocator_traits::deallocate(allocator_, begin_, capacity());
                 begin_ = new_begin;
                 end_ = begin_ + new_size;
@@ -634,7 +634,7 @@ public:
             std::move(nonconst_position + 1, end(), nonconst_position);
         }
         --end_;
-        allocator_traits::destroy(allocator_, end_);
+        std::destroy_at(end_);
         return nonconst_position;
     }
     iterator erase(const_iterator first, const_iterator last){
@@ -645,7 +645,7 @@ public:
                 std::move(nonconst_last, end(), nonconst_first);
             }
             end_ = nonconst_first.base() + size_type(end() - nonconst_last);
-            rtw::destroy(allocator_, end_, end_ + size_type(last - first));
+            std::destroy(end_, end_ + size_type(last - first));
         }
         return nonconst_first;
     }
@@ -666,7 +666,7 @@ public:
     }
     void pop_back(){
         --end_;
-        allocator_traits::destroy(allocator_, end_);
+        std::destroy_at(end_);
     }
     void resize(size_type count){
         resize_impl(count);

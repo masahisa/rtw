@@ -15,16 +15,6 @@ void construct(Allocator allocator, ForwardIterator first, ForwardIterator last,
     }
 }
 
-template<typename ForwardIterator, typename Allocator>
-void destroy(Allocator allocator, ForwardIterator first, ForwardIterator last)
-{
-    using allocator_traits = std::allocator_traits<Allocator>;
-    while(first != last){
-        allocator_traits::destroy(allocator, first);
-        ++first;
-    }
-}
-
 } // namespace rtw
 
 #endif // RTW_ALLOCATOR_HPP
