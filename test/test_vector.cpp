@@ -169,6 +169,36 @@ TEST_F(VectorTest, Assign)
     }
 }
 
+TEST_F(VectorTest, AssignIterator)
+{
+    rtw::vector<int> c(2);
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        c[i] = i;
+    }
+    int data[] = { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+    c.assign(data, data + 4);
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(4, c.capacity());
+    EXPECT_EQ(4, c.size());
+    int data1[] = { 4, 5, 6, 7 };
+    EXPECT_EQ(0, std::memcmp(data1, c.data(), c.size() * sizeof(int)));
+
+    c.assign(data + 4, data + 6);
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(4, c.capacity());
+    EXPECT_EQ(2, c.size());
+    int data2[] = { 8, 9 };
+    EXPECT_EQ(0, std::memcmp(data2, c.data(), c.size() * sizeof(int)));
+
+    c.reserve(8);
+    c.assign(data + 6, data + 10);
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(8, c.capacity());
+    EXPECT_EQ(4, c.size());
+    int data3[] = { 10, 11, 12, 13 };
+    EXPECT_EQ(0, std::memcmp(data3, c.data(), c.size() * sizeof(int)));
+}
+
 TEST_F(VectorTest, At)
 {
     rtw::vector<int> c(4);

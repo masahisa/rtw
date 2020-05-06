@@ -398,8 +398,26 @@ public:
         end_ = begin_ + count;
     }
     template<typename InputIterator, typename = std::enable_if_t<std::is_convertible_v<typename std::iterator_traits<InputIterator>::iterator_category, std::input_iterator_tag>>>
-    void assign(InputIterator first, InputIterator last);
-    void assign(std::initializer_list<T> ilist);
+    void assign(InputIterator first, InputIterator last){
+        size_type count = size_type(last - first);
+        if(count > capacity()){
+            pointer const new_begin = allocator_traits::allocate(allocator_, count);
+            std::uninitialized_copy(first, last, new_begin);
+            rtw::destroy(allocator_, begin_, end_);
+            allocator_traits::deallocate(allocator_, begin_, capacity());
+            begin_ = new_begin;
+            capacity_ = begin_ + count;
+        }
+        else if(size() >= count){
+            std::copy(first, last, begin_);
+            rtw::destroy(allocator_, begin_ + count, end_);
+        }
+        else{
+            std::copy(first , first + size(), begin_);
+            std::uninitialized_copy(first + size(), last, begin_ + size());
+        }
+        end_ = begin_ + count;
+    }
     // get_allocator
     allocator_type get_allocator() const{
         return allocator_;
