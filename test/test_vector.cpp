@@ -93,6 +93,50 @@ TEST_F(VectorTest, ConstructorWithLvalueVectorAndLvalueAllocator)
     }
 }
 
+TEST_F(VectorTest, OperatorAssignmentWithLvalueVector)
+{
+    rtw::vector<int> other(4);
+    for(int i = 0; i < static_cast<int>(other.size()); i++){
+        other[i] = i + 100;
+    }
+    rtw::vector<int> c(2);
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        c[i] = i;
+    }
+    c = other;
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(4, c.capacity());
+    EXPECT_EQ(4, c.size());
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        EXPECT_EQ(i + 100, c[i]);
+    }
+
+    other.resize(2);
+    for(int i = 0; i < static_cast<int>(other.size()); i++){
+        other[i] = i + 200;
+    }
+    c = other;
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(4, c.capacity());
+    EXPECT_EQ(2, c.size());
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        EXPECT_EQ(i + 200, c[i]);
+    }
+
+    c.reserve(8);
+    other.resize(4);
+    for(int i = 0; i < static_cast<int>(other.size()); i++){
+        other[i] = i + 300;
+    }
+    c = other;
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(8, c.capacity());
+    EXPECT_EQ(4, c.size());
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        EXPECT_EQ(i + 300, c[i]);
+    }
+}
+
 TEST_F(VectorTest, At)
 {
     rtw::vector<int> c(4);

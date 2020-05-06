@@ -345,7 +345,36 @@ public:
         allocator_traits::deallocate(allocator_, begin_, capacity());
     }
     // operator=
-    vector& operator=(const vector& other);
+    vector& operator=(const vector& other){
+        if(&other != this){
+            if constexpr(allocator_traits::propagate_on_container_copy_assignment::value){
+                if constexpr(!allocator_traits::is_always_equal::value && get_allocator() != other.get_allocator()){
+                    clear();
+                }
+                allocator_ = other.get_allocator();
+            }
+
+            size_type other_size = other.size();
+            if(other_size > capacity()){
+                pointer const new_begin = allocator_traits::allocate(allocator_, other_size);
+                std::uninitialized_copy(other.begin(), other.end(), new_begin);
+                rtw::destroy(allocator_, begin_, end_);
+                allocator_traits::deallocate(allocator_, begin_, capacity());
+                begin_ = new_begin;
+                capacity_ = begin_ + other_size;
+            }
+            else if(size() >= other_size){
+                std::copy(other.begin(), other.end(), begin());
+                rtw::destroy(allocator_, begin_ + other_size, end_);
+            }
+            else{
+                std::copy(other.begin(), other.begin() + size(), begin());
+                std::uninitialized_copy(other.begin() + size(), other.end(), begin() + size());
+            }
+            end_ = begin_ + other_size;
+        }
+        return *this;
+    }
     vector& operator=(vector&& other) noexcept(std::allocator_traits<Allocator>::propagate_on_container_move_assignment::value || std::allocator_traits<Allocator>::is_always_equal::value);
     vector& operator=(std::initializer_list<T> ilist);
     // assign
