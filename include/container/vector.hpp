@@ -376,7 +376,10 @@ public:
         return *this;
     }
     vector& operator=(vector&& other) noexcept(std::allocator_traits<Allocator>::propagate_on_container_move_assignment::value || std::allocator_traits<Allocator>::is_always_equal::value);
-    vector& operator=(std::initializer_list<T> ilist);
+    vector& operator=(std::initializer_list<T> ilist){
+        assign(ilist.begin(), ilist.end());
+        return *this;
+    }
     // assign
     void assign(size_type count, const T& value){
         if(count > capacity()){
