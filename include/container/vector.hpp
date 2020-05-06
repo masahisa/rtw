@@ -311,14 +311,20 @@ public:
     , begin_(nullptr)
     , end_(nullptr)
     , capacity_(nullptr){
-        resize(count, value);
+        begin_ = allocator_traits::allocate(allocator_, count);
+        std::uninitialized_fill_n(begin_, count, value);
+        capacity_ = begin_ + count;
+        end_ = begin_ + count;
     }
     explicit vector(size_type count, const Allocator& allocator = Allocator())
     : allocator_(allocator)
     , begin_(nullptr)
     , end_(nullptr)
     , capacity_(nullptr){
-        resize(count);
+        begin_ = allocator_traits::allocate(allocator_, count);
+        std::uninitialized_value_construct_n(begin_, count);
+        capacity_ = begin_ + count;
+        end_ = begin_ + count;
     }
     template<typename InputIterator, typename = std::enable_if_t<std::is_convertible_v<typename std::iterator_traits<InputIterator>::iterator_category, std::input_iterator_tag>>>
     vector(InputIterator first, InputIterator last, const Allocator& allocator = Allocator())
