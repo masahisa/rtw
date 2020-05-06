@@ -137,6 +137,38 @@ TEST_F(VectorTest, OperatorAssignmentWithLvalueVector)
     }
 }
 
+TEST_F(VectorTest, Assign)
+{
+    rtw::vector<int> c(2);
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        c[i] = i;
+    }
+    c.assign(4, 10);
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(4, c.capacity());
+    EXPECT_EQ(4, c.size());
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        EXPECT_EQ(10, c[i]);
+    }
+
+    c.assign(2, 20);
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(4, c.capacity());
+    EXPECT_EQ(2, c.size());
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        EXPECT_EQ(20, c[i]);
+    }
+
+    c.reserve(8);
+    c.assign(4, 30);
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(8, c.capacity());
+    EXPECT_EQ(4, c.size());
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        EXPECT_EQ(30, c[i]);
+    }
+}
+
 TEST_F(VectorTest, At)
 {
     rtw::vector<int> c(4);

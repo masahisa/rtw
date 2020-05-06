@@ -378,7 +378,25 @@ public:
     vector& operator=(vector&& other) noexcept(std::allocator_traits<Allocator>::propagate_on_container_move_assignment::value || std::allocator_traits<Allocator>::is_always_equal::value);
     vector& operator=(std::initializer_list<T> ilist);
     // assign
-    void assign(size_type count, const T& value);
+    void assign(size_type count, const T& value){
+        if(count > capacity()){
+            pointer const new_begin = allocator_traits::allocate(allocator_, count);
+            std::uninitialized_fill_n(new_begin, count, value);
+            rtw::destroy(allocator_, begin_, end_);
+            allocator_traits::deallocate(allocator_, begin_, capacity());
+            begin_ = new_begin;
+            capacity_ = begin_ + count;
+        }
+        else if(size() >= count){
+            std::fill_n(begin_, count, value);
+            rtw::destroy(allocator_, begin_ + count, end_);
+        }
+        else{
+            std::fill_n(begin_, size(), value);
+            std::uninitialized_fill_n(begin_ + size(), count - size(), value);
+        }
+        end_ = begin_ + count;
+    }
     template<typename InputIterator, typename = std::enable_if_t<std::is_convertible_v<typename std::iterator_traits<InputIterator>::iterator_category, std::input_iterator_tag>>>
     void assign(InputIterator first, InputIterator last);
     void assign(std::initializer_list<T> ilist);
