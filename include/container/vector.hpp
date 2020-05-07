@@ -239,6 +239,14 @@ private:
         end_ = begin_ + other.size();
         capacity_ = begin_ + capacity;
     }
+    template<typename InputIterator>
+    void constructor_with_range(InputIterator first, InputIterator last){
+        size_type count = size_type(last - first);
+        begin_ = allocator_traits::allocate(allocator_, count);
+        std::uninitialized_copy(first, last, begin_);
+        capacity_ = begin_ + count;
+        end_ = begin_ + count;
+    }
     bool is_full() const{
         return end_ == capacity_;
     }
@@ -332,11 +340,7 @@ public:
     , begin_(nullptr)
     , end_(nullptr)
     , capacity_(nullptr){
-        size_type count = size_type(last - first);
-        begin_ = allocator_traits::allocate(allocator_, count);
-        std::uninitialized_copy(first, last, begin_);
-        capacity_ = begin_ + count;
-        end_ = begin_ + count;
+        constructor_with_range(first, last);
     }
     vector(const vector& other)
     : allocator_(other.get_allocator())
@@ -354,7 +358,13 @@ public:
     }
     vector(vector&& other) noexcept;
     vector(vector&& other, const Allocator& allocator);
-    vector(std::initializer_list<T> ilist, const Allocator& allocator = Allocator());
+    vector(std::initializer_list<T> ilist, const Allocator& allocator = Allocator())
+    : allocator_(allocator)
+    , begin_(nullptr)
+    , end_(nullptr)
+    , capacity_(nullptr){
+        constructor_with_range(ilist.begin(), ilist.end());
+    }
     // destructor
     ~vector(){
         std::destroy(begin_, end_);

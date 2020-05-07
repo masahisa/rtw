@@ -103,6 +103,21 @@ TEST_F(VectorTest, ConstructorWithLvalueVectorAndLvalueAllocator)
     }
 }
 
+TEST_F(VectorTest, ConstructorWithIInitializerListAndLvalueAllocator)
+{
+    std::initializer_list<int> data = { 0, 1, 2, 3 };
+    std::allocator<int> allocator;
+    rtw::vector<int> c(data, allocator);
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        EXPECT_EQ(i, c[i]);
+    }
+
+    rtw::vector<int> nac({ 0, 1, 2, 3 });
+    for(int i = 0; i < static_cast<int>(nac.size()); i++){
+        EXPECT_EQ(i, nac[i]);
+    }
+}
+
 TEST_F(VectorTest, OperatorAssignmentWithLvalueVector)
 {
     rtw::vector<int> other(4);
