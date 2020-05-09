@@ -302,6 +302,12 @@ private:
         allocator_traits::construct(allocator_, pointer_position, std::forward<Args>(args)...);
         ++end_;
     }
+    void swap_without_allocator(vector&& other) noexcept{
+        using std::swap;
+        swap(begin_, other.begin_);
+        swap(end_, other.end_);
+        swap(capacity_, other.capacity_);
+    }
 public:
     // constructor
     vector() noexcept(noexcept(Allocator()))
@@ -363,7 +369,28 @@ public:
     , capacity_(nullptr){
         swap(other);
     }
-    vector(vector&& other, const Allocator& allocator);
+    vector(vector&& other, const Allocator& allocator)
+    : allocator_(allocator)
+    , begin_(nullptr)
+    , end_(nullptr)
+    , capacity_(nullptr){
+        if constexpr(allocator_traits::is_always_equal::value){
+            swap_without_allocator(std::move(other));
+        }
+        else{
+            if(get_allocator() == other.get_allocator()){
+                swap_without_allocator(std::move(other));
+            }
+            else{
+                size_type capacity = other.capacity();
+                begin_ = allocator_traits::allocate(allocator_, capacity);
+                std::uninitialized_move(other.begin(), other.end(), begin());
+                end_ = begin_ + other.size();
+                capacity_ = begin_ + capacity;
+            }
+        }
+
+    }
     vector(std::initializer_list<T> ilist, const Allocator& allocator = Allocator())
     : allocator_(allocator)
     , begin_(nullptr)
