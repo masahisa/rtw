@@ -684,7 +684,13 @@ public:
     void resize(size_type count, const value_type& value){
         resize_impl(count, value);
     }
-    void swap(vector& other) noexcept(std::allocator_traits<Allocator>::propagate_on_container_move_swap::value || std::allocator_traits<Allocator>::is_always_equal::value);
+    void swap(vector& other) noexcept(std::allocator_traits<Allocator>::propagate_on_container_swap::value || std::allocator_traits<Allocator>::is_always_equal::value){
+        using std::swap;
+        swap(allocator_, other.allocator_);
+        swap(begin_, other.begin_);
+        swap(end_, other.end_);
+        swap(capacity_, other.capacity_);
+    }
 };
 
 template<typename T, typename Allocator>

@@ -809,6 +809,33 @@ TEST_F(VectorTest, PopBack)
     }
 }
 
+TEST_F(VectorTest, Swap)
+{
+    rtw::vector<int> c(4);
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        c[i] = i;
+    }
+    rtw::vector<int> other(4);
+    other.reserve(8);
+    for(int i = 0; i < static_cast<int>(other.size()); i++){
+        other[i] = i + 100;
+    }
+    c.swap(other);
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(8, c.capacity());
+    EXPECT_EQ(4, c.size());
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        EXPECT_EQ(i + 100, c[i]);
+    }
+    EXPECT_FALSE(other.empty());
+    EXPECT_EQ(4, other.capacity());
+    EXPECT_EQ(4, other.size());
+    for(int i = 0; i < static_cast<int>(other.size()); i++){
+        EXPECT_EQ(i, other[i]);
+    }
+}
+
+/*TEST_F(VectorTest, FunctionTemplateSwap)
 TEST_F(VectorTest, FunctionTemplateErase)
 {
     rtw::vector<int> c(4);
