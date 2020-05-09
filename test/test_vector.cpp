@@ -118,6 +118,7 @@ TEST_F(VectorTest, ConstructorWithRvalueVector)
     for(int i = 0; i < static_cast<int>(c.size()); i++){
         EXPECT_EQ(i, c[i]);
     }
+    EXPECT_TRUE(other.empty());
 }
 
 TEST_F(VectorTest, ConstructorWithInitializerListAndLvalueAllocator)
