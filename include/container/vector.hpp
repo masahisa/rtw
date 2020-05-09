@@ -729,7 +729,9 @@ template<typename T, typename Allocator>
 bool operator>=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
 
 template<typename T, typename Allocator>
-void swap(vector<T, Allocator>& lhs, vector<T, Allocator>& rhs) noexcept(noexcept(lhs.swap(rhs)));
+void swap(vector<T, Allocator>& lhs, vector<T, Allocator>& rhs) noexcept(noexcept(lhs.swap(rhs))){
+    lhs.swap(rhs);
+}
 
 template<typename T, typename Allocator, typename U>
 void erase(vector<T, Allocator>& container, const U& value){
