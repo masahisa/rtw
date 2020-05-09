@@ -407,7 +407,23 @@ public:
         }
         return *this;
     }
-    vector& operator=(vector&& other) noexcept(std::allocator_traits<Allocator>::propagate_on_container_move_assignment::value || std::allocator_traits<Allocator>::is_always_equal::value);
+    vector& operator=(vector&& other) noexcept(std::allocator_traits<Allocator>::propagate_on_container_move_assignment::value || std::allocator_traits<Allocator>::is_always_equal::value){
+        if(&other != this){
+            if constexpr(allocator_traits::propagate_on_container_move_assignment::value || allocator_traits::is_always_equal::value){
+                swap(other);
+            }
+            else{
+                if(get_allocator() == other.get_allocator()){
+                    swap(other);
+                }
+                else{
+                    assign(std::make_move_iterator(other.begin()), std::make_move_iterator(other.end()));
+                    other.clear();
+                }
+            }
+        }
+        return *this;
+    }
     vector& operator=(std::initializer_list<T> ilist){
         assign(ilist.begin(), ilist.end());
         return *this;

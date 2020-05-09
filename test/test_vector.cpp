@@ -180,6 +180,25 @@ TEST_F(VectorTest, OperatorAssignmentWithLvalueVector)
     }
 }
 
+TEST_F(VectorTest, OperatorAssignmentWithRvalueVector)
+{
+    rtw::vector<int> other(4);
+    for(int i = 0; i < static_cast<int>(other.size()); i++){
+        other[i] = i + 100;
+    }
+    rtw::vector<int> c(2);
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        c[i] = i;
+    }
+    c = std::move(other);
+    EXPECT_FALSE(c.empty());
+    EXPECT_EQ(4, c.capacity());
+    EXPECT_EQ(4, c.size());
+    for(int i = 0; i < static_cast<int>(c.size()); i++){
+        EXPECT_EQ(i + 100, c[i]);
+    }
+}
+
 TEST_F(VectorTest, OperatorAssignmentWithInitializerList)
 {
     rtw::vector<int> c(2);
