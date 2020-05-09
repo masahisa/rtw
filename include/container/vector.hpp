@@ -356,7 +356,13 @@ public:
     , capacity_(nullptr){
         copy_constructor_impl(other);
     }
-    vector(vector&& other) noexcept;
+    vector(vector&& other) noexcept
+    : allocator_(Allocator())
+    , begin_(nullptr)
+    , end_(nullptr)
+    , capacity_(nullptr){
+        swap(other);
+    }
     vector(vector&& other, const Allocator& allocator);
     vector(std::initializer_list<T> ilist, const Allocator& allocator = Allocator())
     : allocator_(allocator)
