@@ -944,3 +944,51 @@ TEST_F(VectorTest, FunctionTemplateEraseIf)
     int data[] = { 0, 2 };
     EXPECT_EQ(0, std::memcmp(data, c.data(), c.size() * sizeof(int)));
 }
+
+TEST_F(VectorTest, OperatorEqual)
+{
+    rtw::vector<int> a{ 1, 2 };
+    rtw::vector<int> b{ 1, 2 };
+    EXPECT_TRUE(a == b);
+}
+
+TEST_F(VectorTest, OperatorNotEqual)
+{
+    rtw::vector<int> a{ 1, 2 };
+    rtw::vector<int> b{ 1 };
+    EXPECT_TRUE(a != b);
+}
+
+TEST_F(VectorTest, OperatorLess)
+{
+    rtw::vector<int> a{ 1, 2 };
+    rtw::vector<int> b{ 1, 3 };
+    EXPECT_TRUE(a < b);
+}
+
+TEST_F(VectorTest, OperatorLessEqual)
+{
+    rtw::vector<int> a{ 1, 2 };
+    rtw::vector<int> b{ 1, 3 };
+    EXPECT_TRUE(a <= b);
+
+    rtw::vector<int> c{ 1, 2 };
+    EXPECT_TRUE(a <= c);
+}
+
+TEST_F(VectorTest, OperatorGreater)
+{
+    rtw::vector<int> a{ 1, 2 };
+    rtw::vector<int> b{ 1, 3 };
+    EXPECT_TRUE(b > a);
+}
+
+TEST_F(VectorTest, OperatorGreaterEqual)
+{
+    rtw::vector<int> a{ 1, 2 };
+    rtw::vector<int> b{ 1, 3 };
+    EXPECT_TRUE(b >= a);
+
+    rtw::vector<int> c{ 1, 2 };
+    EXPECT_TRUE(a >= c);
+}

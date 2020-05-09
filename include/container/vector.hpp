@@ -743,17 +743,29 @@ public:
 };
 
 template<typename T, typename Allocator>
-bool operator==(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
+bool operator==(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs){
+    return lhs.size() == rhs.size() && std::equal(lhs.begin(), lhs.end(), rhs.begin());
+}
 template<typename T, typename Allocator>
-bool operator!=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
+bool operator!=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs){
+    return !(lhs == rhs);
+}
 template<typename T, typename Allocator>
-bool operator<(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
+bool operator<(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs){
+    return std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+}
 template<typename T, typename Allocator>
-bool operator<=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
+bool operator<=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs){
+    return !(rhs < lhs);
+}
 template<typename T, typename Allocator>
-bool operator>(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
+bool operator>(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs){
+    return rhs < lhs;
+}
 template<typename T, typename Allocator>
-bool operator>=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs);
+bool operator>=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs){
+    return !(lhs < rhs);
+}
 
 template<typename T, typename Allocator>
 void swap(vector<T, Allocator>& lhs, vector<T, Allocator>& rhs) noexcept(noexcept(lhs.swap(rhs))){
