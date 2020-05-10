@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "algorithm/quick_sort.hpp"
+#include <rtw/algorithm/quick_sort.hpp>
 
 #include <array>
 #include <vector>

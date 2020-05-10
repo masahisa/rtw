@@ -7,7 +7,7 @@
 #include <utility>
 #include <memory>
 
-#include "algorithm/heap.hpp"
+#include <rtw/algorithm/heap.hpp>
 
 namespace rtw{
 

@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "algorithm/merge_sort.hpp"
+#include <rtw/algorithm/merge_sort.hpp>
 
 #include <array>
 #include <vector>

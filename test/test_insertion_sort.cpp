@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "algorithm/insertion_sort.hpp"
+#include <rtw/algorithm/insertion_sort.hpp>
 
 #include <array>
 #include <vector>

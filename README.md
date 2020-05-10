@@ -42,14 +42,16 @@ rtw/
         Doxyfile.in
         doxygen/
     include/
-        algorithm/
-            *.hpp
-        container/
-            *.hpp
+        rtw/
+          algorithm/
+              *.hpp
+          container/
+              *.hpp
     lib/
     src/
         CMakeLists.txt
         main.cpp
+        *.cpp
     test/
         CMakeLists.txt
         run_all_tests.cpp

@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "algorithm/order_statistic.hpp"
+#include <rtw/algorithm/order_statistic.hpp>
 
 #include <array>
 #include <vector>

@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "algorithm/linear_search.hpp"
+#include <rtw/algorithm/linear_search.hpp>
 
 #include <array>
 #include <vector>

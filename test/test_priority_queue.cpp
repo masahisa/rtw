@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "container/priority_queue.hpp"
+#include <rtw/container/priority_queue.hpp>
 
 #include <deque>
 #include <functional>

@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "algorithm/heap.hpp"
+#include <rtw/algorithm/heap.hpp>
 
 #include <array>
 #include <vector>

@@ -4,7 +4,7 @@
 #include <iterator>
 #include <utility>
 
-#include "quick_sort.hpp"
+#include <rtw/algorithm/quick_sort.hpp>
 
 namespace rtw {
 

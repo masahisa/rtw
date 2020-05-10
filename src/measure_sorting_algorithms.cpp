@@ -1,7 +1,7 @@
-#include "algorithm/insertion_sort.hpp"
-#include "algorithm/heap.hpp"
-#include "algorithm/merge_sort.hpp"
-#include "algorithm/quick_sort.hpp"
+#include <rtw/algorithm/insertion_sort.hpp>
+#include <rtw/algorithm/heap.hpp>
+#include <rtw/algorithm/merge_sort.hpp>
+#include <rtw/algorithm/quick_sort.hpp>
 
 #include <iostream>
 #include <vector>
