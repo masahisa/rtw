@@ -8,9 +8,11 @@ add_executable(
     run_all_tests
     "run_all_tests.cpp"
     "test_binary_search.cpp"
+    "test_equal_range.cpp"
     "test_heap.cpp"
     "test_insertion_sort.cpp"
     "test_linear_search.cpp"
+    "test_lower_bound.cpp"
     "test_max_element.cpp"
     "test_merge_sort.cpp"
     "test_min_element.cpp"
@@ -20,6 +22,7 @@ add_executable(
     "test_queue.cpp"
     "test_quick_sort.cpp"
     "test_stack.cpp"
+    "test_upper_bound.cpp"
     "test_vector.cpp"
 )
 
