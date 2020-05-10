@@ -9,10 +9,10 @@ namespace rtw {
 template<typename ForwardIterator, typename T, typename Compare>
 constexpr ForwardIterator lower_bound(ForwardIterator first, ForwardIterator last, const T& value, Compare compare)
 {
-    using DifferenceType = typename std::iterator_traits<ForwardIterator>::difference_type;
-    DifferenceType distance = std::distance(first, last);
+    using difference_type = typename std::iterator_traits<ForwardIterator>::difference_type;
+    difference_type distance = std::distance(first, last);
     while(distance > 0) {
-        DifferenceType half = distance >> 1;
+        difference_type half = distance >> 1;
         ForwardIterator middle = first;
         std::advance(middle, half);
         if(compare(*middle, value)){
@@ -30,17 +30,17 @@ constexpr ForwardIterator lower_bound(ForwardIterator first, ForwardIterator las
 template<typename ForwardIterator, typename T>
 constexpr ForwardIterator lower_bound(ForwardIterator first, ForwardIterator last, const T& value)
 {
-    using ValueType = typename std::iterator_traits<ForwardIterator>::value_type;
-    return rtw::lower_bound(first, last, value, std::less<ValueType>());
+    using value_type = typename std::iterator_traits<ForwardIterator>::value_type;
+    return rtw::lower_bound(first, last, value, std::less<value_type>());
 }
 
 template<typename ForwardIterator, typename T, typename Compare>
 constexpr ForwardIterator upper_bound(ForwardIterator first, ForwardIterator last, const T& value, Compare compare)
 {
-    using DifferenceType = typename std::iterator_traits<ForwardIterator>::difference_type;
-    DifferenceType distance = std::distance(first, last);
+    using difference_type = typename std::iterator_traits<ForwardIterator>::difference_type;
+    difference_type distance = std::distance(first, last);
     while(distance > 0) {
-        DifferenceType half = distance >> 1;
+        difference_type half = distance >> 1;
         ForwardIterator middle = first;
         std::advance(middle, half);
         if(compare(value, *middle)){
@@ -58,8 +58,8 @@ constexpr ForwardIterator upper_bound(ForwardIterator first, ForwardIterator las
 template<typename ForwardIterator, typename T>
 constexpr ForwardIterator upper_bound(ForwardIterator first, ForwardIterator last, const T& value)
 {
-    using ValueType = typename std::iterator_traits<ForwardIterator>::value_type;
-    return rtw::upper_bound(first, last, value, std::less<ValueType>());
+    using value_type = typename std::iterator_traits<ForwardIterator>::value_type;
+    return rtw::upper_bound(first, last, value, std::less<value_type>());
 }
 
 template<typename ForwardIterator, typename T, typename Compare>
@@ -72,8 +72,8 @@ constexpr bool binary_search(ForwardIterator first, ForwardIterator last, const 
 template<typename ForwardIterator, typename T>
 constexpr bool binary_search(ForwardIterator first, ForwardIterator last, const T& value)
 {
-    using ValueType = typename std::iterator_traits<ForwardIterator>::value_type;
-    return rtw::binary_search(first, last, value, std::less<ValueType>());
+    using value_type = typename std::iterator_traits<ForwardIterator>::value_type;
+    return rtw::binary_search(first, last, value, std::less<value_type>());
 }
 
 template<typename ForwardIterator, typename T, typename Compare>
@@ -85,8 +85,8 @@ constexpr std::pair<ForwardIterator, ForwardIterator> equal_range(ForwardIterato
 template<typename ForwardIterator, typename T>
 constexpr std::pair<ForwardIterator, ForwardIterator> equal_range(ForwardIterator first, ForwardIterator last, const T& value)
 {
-    using ValueType = typename std::iterator_traits<ForwardIterator>::value_type;
-    return rtw::equal_range(first, last, value, std::less<ValueType>());
+    using value_type = typename std::iterator_traits<ForwardIterator>::value_type;
+    return rtw::equal_range(first, last, value, std::less<value_type>());
 }
 
 } // namespace rtw

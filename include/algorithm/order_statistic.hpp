@@ -28,8 +28,8 @@ ForwardIterator min_element(ForwardIterator first, ForwardIterator last, Compare
 template<typename ForwardIterator>
 ForwardIterator min_element(ForwardIterator first, ForwardIterator last)
 {
-    using ValueType = typename std::iterator_traits<ForwardIterator>::value_type;
-    return rtw::min_element(first, last, std::less<ValueType>());
+    using value_type = typename std::iterator_traits<ForwardIterator>::value_type;
+    return rtw::min_element(first, last, std::less<value_type>());
 }
 
 template<typename ForwardIterator, typename Compare>
@@ -52,8 +52,8 @@ ForwardIterator max_element(ForwardIterator first, ForwardIterator last, Compare
 template<typename ForwardIterator>
 ForwardIterator max_element(ForwardIterator first, ForwardIterator last)
 {
-    using ValueType = typename std::iterator_traits<ForwardIterator>::value_type;
-    return rtw::max_element(first, last, std::less<ValueType>());
+    using value_type = typename std::iterator_traits<ForwardIterator>::value_type;
+    return rtw::max_element(first, last, std::less<value_type>());
 }
 
 template<typename ForwardIterator, typename Compare>
@@ -112,8 +112,8 @@ std::pair<ForwardIterator, ForwardIterator> minmax_element(ForwardIterator first
 template<typename ForwardIterator>
 std::pair<ForwardIterator, ForwardIterator> minmax_element(ForwardIterator first, ForwardIterator last)
 {
-    using ValueType = typename std::iterator_traits<ForwardIterator>::value_type;
-    return rtw::minmax_element(first, last, std::less<ValueType>());
+    using value_type = typename std::iterator_traits<ForwardIterator>::value_type;
+    return rtw::minmax_element(first, last, std::less<value_type>());
 }
 
 template<typename RandomAccessIterator, typename Compare>
@@ -133,8 +133,8 @@ void nth_element(RandomAccessIterator first, RandomAccessIterator nth, RandomAcc
 template<typename RandomAccessIterator>
 void nth_element(RandomAccessIterator first, RandomAccessIterator nth, RandomAccessIterator last)
 {
-    using ValueType = typename std::iterator_traits<RandomAccessIterator>::value_type;
-    rtw::nth_element(first, nth, last, std::less<ValueType>());
+    using value_type = typename std::iterator_traits<RandomAccessIterator>::value_type;
+    rtw::nth_element(first, nth, last, std::less<value_type>());
 }
 
 } // namespace rtw

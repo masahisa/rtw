@@ -42,8 +42,8 @@ constexpr void make_heap(RandomAccessIterator first, RandomAccessIterator last, 
 template<typename RandomAccessIterator>
 constexpr void make_heap(RandomAccessIterator first, RandomAccessIterator last)
 {
-    using ValueType = typename std::iterator_traits<RandomAccessIterator>::value_type;
-    rtw::make_heap(first, last, std::less<ValueType>());
+    using value_type = typename std::iterator_traits<RandomAccessIterator>::value_type;
+    rtw::make_heap(first, last, std::less<value_type>());
 }
 
 template<typename RandomAccessIterator, typename Compare>
@@ -71,8 +71,8 @@ constexpr bool set_heap_key(RandomAccessIterator first, RandomAccessIterator nod
 template<typename RandomAccessIterator, typename T>
 constexpr bool set_heap_key(RandomAccessIterator first, RandomAccessIterator node, T value)
 {
-    using ValueType = typename std::iterator_traits<RandomAccessIterator>::value_type;
-    return rtw::set_heap_key(first, node, value, std::less<ValueType>());
+    using value_type = typename std::iterator_traits<RandomAccessIterator>::value_type;
+    return rtw::set_heap_key(first, node, value, std::less<value_type>());
 }
 
 template<typename RandomAccessIterator, typename Compare>
@@ -85,8 +85,8 @@ constexpr void push_heap(RandomAccessIterator first, RandomAccessIterator last, 
 template<typename RandomAccessIterator>
 constexpr void push_heap(RandomAccessIterator first, RandomAccessIterator last)
 {
-    using ValueType = typename std::iterator_traits<RandomAccessIterator>::value_type;
-    rtw::push_heap(first, last, std::less<ValueType>());
+    using value_type = typename std::iterator_traits<RandomAccessIterator>::value_type;
+    rtw::push_heap(first, last, std::less<value_type>());
 }
 
 template<typename RandomAccessIterator, typename Compare>
@@ -100,8 +100,8 @@ constexpr void pop_heap(RandomAccessIterator first, RandomAccessIterator last, C
 template<typename RandomAccessIterator>
 constexpr void pop_heap(RandomAccessIterator first, RandomAccessIterator last)
 {
-    using ValueType = typename std::iterator_traits<RandomAccessIterator>::value_type;
-    rtw::pop_heap(first, last, std::less<ValueType>());
+    using value_type = typename std::iterator_traits<RandomAccessIterator>::value_type;
+    rtw::pop_heap(first, last, std::less<value_type>());
 }
 
 template<typename RandomAccessIterator, typename Compare>
@@ -116,8 +116,8 @@ constexpr void sort_heap(RandomAccessIterator first, RandomAccessIterator last, 
 template<typename RandomAccessIterator>
 constexpr void sort_heap(RandomAccessIterator first, RandomAccessIterator last)
 {
-    using ValueType = typename std::iterator_traits<RandomAccessIterator>::value_type;
-    rtw::sort_heap(first, last, std::less<ValueType>());
+    using value_type = typename std::iterator_traits<RandomAccessIterator>::value_type;
+    rtw::sort_heap(first, last, std::less<value_type>());
 }
 
 } // namespace rtw

@@ -44,18 +44,18 @@ void merge_sort(RandomAccessIterator first, RandomAccessIterator last, Pointer b
 template<typename RandomAccessIterator, typename Compare>
 void merge_sort(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
 {
-    using ValueType = typename std::iterator_traits<RandomAccessIterator>::value_type;
-    using DifferenceType = typename std::iterator_traits<RandomAccessIterator>::difference_type;
-    DifferenceType distance = std::distance(first, last);
-    std::vector<ValueType> buffer(distance);
+    using value_type = typename std::iterator_traits<RandomAccessIterator>::value_type;
+    using difference_type = typename std::iterator_traits<RandomAccessIterator>::difference_type;
+    difference_type distance = std::distance(first, last);
+    std::vector<value_type> buffer(distance);
     merge_sort(first, last, buffer.begin(), compare);
 }
 
 template<typename RandomAccessIterator>
 void merge_sort(RandomAccessIterator first, RandomAccessIterator last)
 {
-    using ValueType = typename std::iterator_traits<RandomAccessIterator>::value_type;
-    rtw::merge_sort(first, last, std::less<ValueType>());
+    using value_type = typename std::iterator_traits<RandomAccessIterator>::value_type;
+    rtw::merge_sort(first, last, std::less<value_type>());
 }
 
 } // namespace rtw

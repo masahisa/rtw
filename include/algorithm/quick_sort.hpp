@@ -33,8 +33,8 @@ void move_median_to_first(Iterator result, Iterator a, Iterator b, Iterator c, C
 template<typename RandomAccessIterator, typename Compare>
 constexpr RandomAccessIterator partition(RandomAccessIterator first, RandomAccessIterator last, Compare compare)
 {
-    using ValueType = typename std::iterator_traits<RandomAccessIterator>::value_type;
-    ValueType pivot = *first;
+    using value_type = typename std::iterator_traits<RandomAccessIterator>::value_type;
+    value_type pivot = *first;
     while(true){
         while(compare(*first, pivot)){
             ++first;
@@ -72,8 +72,8 @@ constexpr void quick_sort(RandomAccessIterator first, RandomAccessIterator last,
 template<typename RandomAccessIterator>
 constexpr void quick_sort(RandomAccessIterator first, RandomAccessIterator last)
 {
-    using ValueType = typename std::iterator_traits<RandomAccessIterator>::value_type;
-    rtw::quick_sort(first, last, std::less<ValueType>());
+    using value_type = typename std::iterator_traits<RandomAccessIterator>::value_type;
+    rtw::quick_sort(first, last, std::less<value_type>());
 }
 
 } // namespace rtw
