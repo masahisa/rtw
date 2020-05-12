@@ -424,12 +424,12 @@ TEST_F(VectorTest, Clear)
     rtw::vector<int> c(4);
     c.clear();
     EXPECT_TRUE(c.empty());
-    EXPECT_EQ(0, c.capacity());
+    EXPECT_EQ(4, c.capacity());
     EXPECT_EQ(0, c.size());
 
     c.clear();
     EXPECT_TRUE(c.empty());
-    EXPECT_EQ(0, c.capacity());
+    EXPECT_EQ(4, c.capacity());
     EXPECT_EQ(0, c.size());
 }
 
@@ -758,6 +758,12 @@ TEST_F(VectorTest, EraseIterator)
     int data2[] = { 0 };
     EXPECT_EQ(0, std::memcmp(data2, c.data(), c.size() * sizeof(int)));
     EXPECT_EQ(c.end(), rit2);
+
+    rtw::vector<int>::iterator rit3 = c.erase(c.begin(), c.end());
+    EXPECT_TRUE(c.empty());
+    EXPECT_EQ(4, c.capacity());
+    EXPECT_EQ(0, c.size());
+    EXPECT_EQ(c.end(), rit3);
 }
 
 TEST_F(VectorTest, PushBackLvalue)

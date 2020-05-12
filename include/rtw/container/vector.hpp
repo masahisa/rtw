@@ -604,10 +604,7 @@ public:
     // modifiers
     void clear() noexcept{
         std::destroy(begin_, end_);
-        allocator_traits::deallocate(allocator_, begin_, capacity());
-        begin_ = nullptr;
         end_ = begin_;
-        capacity_ = begin_;
     }
     iterator insert(const_iterator position, const T& value){
         return emplace(position, value);
