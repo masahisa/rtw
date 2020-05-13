@@ -17,6 +17,7 @@ add_executable(
     "test_merge_sort.cpp"
     "test_min_element.cpp"
     "test_minmax_element.cpp"
+    "test_partial_sort.cpp"
     "test_nth_element.cpp"
     "test_priority_queue.cpp"
     "test_queue.cpp"
