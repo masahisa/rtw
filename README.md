@@ -10,6 +10,7 @@ This library includes these algorithms and containers listed as follows.
   - insertion sort
   - heap sort
   - merge sort
+  - partial sort
   - quick sort
 - Search Algorithm
   - linear search
