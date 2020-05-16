@@ -8,6 +8,7 @@ This library includes these algorithms and containers listed as follows.
 
 - Sorting Algorithm
   - insertion sort
+  - intro sort
   - heap sort
   - merge sort
   - partial sort

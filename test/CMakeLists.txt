@@ -11,6 +11,7 @@ add_executable(
     "test_equal_range.cpp"
     "test_heap.cpp"
     "test_insertion_sort.cpp"
+    "test_intro_sort.cpp"
     "test_linear_search.cpp"
     "test_lower_bound.cpp"
     "test_max_element.cpp"
