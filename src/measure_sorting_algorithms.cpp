@@ -1,4 +1,5 @@
 #include <rtw/algorithm/insertion_sort.hpp>
+#include <rtw/algorithm/intro_sort.hpp>
 #include <rtw/algorithm/heap.hpp>
 #include <rtw/algorithm/merge_sort.hpp>
 #include <rtw/algorithm/quick_sort.hpp>
@@ -14,16 +15,17 @@
 
 enum SortingAlgorithm{
     INSERTION_SORT = 0, 
-    HEAP_SORT = 1, 
-    MERGE_SORT = 2, 
-    QUICK_SORT = 3, 
-    STD_HEAP_SORT = 4, 
-    STD_STABLE_SORT = 5, 
-    STD_SORT = 6, 
+    INTRO_SORT = 1, 
+    HEAP_SORT = 2, 
+    MERGE_SORT = 3, 
+    QUICK_SORT = 4, 
+    STD_HEAP_SORT = 5, 
+    STD_STABLE_SORT = 6, 
+    STD_SORT = 7, 
     SIZE
 };
 
-const std::vector<std::string> names{ "insertion_sort", "heap_sort", "merge_sort", "quick_sort", "std::sort_heap", "std::stable_sort", "std::sort" };
+const std::vector<std::string> names{ "insertion_sort", "intro_sort", "heap_sort", "merge_sort", "quick_sort", "std::sort_heap", "std::stable_sort", "std::sort" };
 
 inline void pre_sort(const std::vector<int>& original, std::vector<std::vector<int>>& data, std::chrono::system_clock::time_point& start)
 {
@@ -78,6 +80,13 @@ void measure_sorting_algorithms()
             rtw::insertion_sort(data[i].begin(), data[i].end());
         }
         post_sort(start, end, result, SortingAlgorithm::INSERTION_SORT);
+
+        // intro sort
+        pre_sort(original, data, start);
+        for(int i = 0; i < iteration; i++){
+            rtw::intro_sort(data[i].begin(), data[i].end());
+        }
+        post_sort(start, end, result, SortingAlgorithm::INTRO_SORT);
 
         // heap sort
         pre_sort(original, data, start);
