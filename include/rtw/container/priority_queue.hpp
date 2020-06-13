@@ -1,17 +1,17 @@
 #ifndef RTW_PRIORITY_QUEUE_HPP
 #define RTW_PRIORITY_QUEUE_HPP
 
-#include <type_traits>
-#include <vector>
 #include <functional>
-#include <utility>
 #include <memory>
+#include <type_traits>
+#include <utility>
 
 #include <rtw/algorithm/heap.hpp>
+#include <rtw/container/vector.hpp>
 
 namespace rtw{
 
-template<typename T, typename Container = std::vector<T>, typename Compare = std::less<typename Container::value_type>>
+template<typename T, typename Container = rtw::vector<T>, typename Compare = std::less<typename Container::value_type>>
 class priority_queue{
 public:
     using container_type = Container;

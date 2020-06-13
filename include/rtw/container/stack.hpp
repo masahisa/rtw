@@ -1,10 +1,10 @@
 #ifndef RTW_STACK_HPP
 #define RTW_STACK_HPP
 
-#include <type_traits>
 #include <deque>
-#include <utility>
 #include <memory>
+#include <type_traits>
+#include <utility>
 
 namespace rtw{
 

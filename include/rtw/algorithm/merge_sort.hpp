@@ -1,9 +1,10 @@
 #ifndef RTW_MERGE_SORT_HPP
 #define RTW_MERGE_SORT_HPP
 
-#include <iterator>
-#include <vector>
 #include <algorithm>
+#include <iterator>
+
+#include <rtw/container/vector.hpp>
 
 namespace rtw {
 
@@ -47,8 +48,8 @@ void merge_sort(RandomAccessIterator first, RandomAccessIterator last, Compare c
     using value_type = typename std::iterator_traits<RandomAccessIterator>::value_type;
     using difference_type = typename std::iterator_traits<RandomAccessIterator>::difference_type;
     difference_type distance = std::distance(first, last);
-    std::vector<value_type> buffer(distance);
-    merge_sort(first, last, buffer.begin(), compare);
+    rtw::vector<value_type> buffer(distance);
+    rtw::merge_sort(first, last, buffer.begin(), compare);
 }
 
 template<typename RandomAccessIterator>

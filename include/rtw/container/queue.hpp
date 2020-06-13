@@ -1,10 +1,10 @@
 #ifndef RTW_QUEUE_HPP
 #define RTW_QUEUE_HPP
 
-#include <type_traits>
 #include <deque>
-#include <utility>
 #include <memory>
+#include <type_traits>
+#include <utility>
 
 namespace rtw{
 

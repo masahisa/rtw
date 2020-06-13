@@ -3,13 +3,14 @@
 
 #include <cmath>
 #include <type_traits>
+
 #include <rtw/algorithm/heap.hpp>
 #include <rtw/algorithm/insertion_sort.hpp>
 #include <rtw/algorithm/quick_sort.hpp>
 
 namespace rtw{
 
-enum { threshold = 16 };
+enum { threshold = 32 };
 
 template<typename T, typename = std::enable_if_t<std::is_integral<T>::value>>
 inline constexpr T intro_sort_depth_limit(T depth)

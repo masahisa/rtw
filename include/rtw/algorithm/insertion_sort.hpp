@@ -1,8 +1,8 @@
 #ifndef RTW_INSERTION_SORT_HPP
 #define RTW_INSERTION_SORT_HPP
 
-#include <iterator>
 #include <algorithm>
+#include <iterator>
 
 namespace rtw {
 
