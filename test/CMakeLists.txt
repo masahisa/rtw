@@ -24,6 +24,7 @@ add_executable(
     "test_queue.cpp"
     "test_quick_sort.cpp"
     "test_stack.cpp"
+    "test_tim_sort.cpp"
     "test_upper_bound.cpp"
     "test_vector.cpp"
 )
