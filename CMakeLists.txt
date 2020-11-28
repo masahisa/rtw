@@ -24,6 +24,9 @@ add_subdirectory(src)
 # add test subdirectories
 add_subdirectory(test)
 
+# add sample subdirectories
+add_subdirectory(sample)
+
 # test
 enable_testing()
 add_test(

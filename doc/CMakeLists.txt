@@ -21,4 +21,4 @@ add_custom_target(
     doc
     COMMAND doxygen ${DOXYGEN_OUT}
     WORKING_DIRECTORY ${DOXYGEN_OUTPUT_DIR}
-    )
+)
