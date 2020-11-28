@@ -14,6 +14,7 @@ tcp_server::tcp_server()
 , acceptor_{ io_service_ }
 , socket_{ io_service_ }
 , read_buff_{  }
+, read_callback_{  }
 , is_started_{ false }
 , is_connected_{ false }
 {
@@ -100,6 +101,9 @@ void tcp_server::on_read(const boost::system::error_code& error, std::size_t byt
         accept();
     }
     else {
+        if (read_callback_) {
+            read_callback_(boost::asio::buffer_cast<const unsigned char*>(read_buff_.data()), bytes_transferred);
+        }
         read_buff_.consume(read_buff_.size());
         read();
     }
@@ -128,12 +132,13 @@ void tcp_server::close()
     }
 }
 
-bool tcp_server::start(unsigned short local_port_number, const std::string& local_ip_address)
+bool tcp_server::start(std::function<void(const unsigned char*, std::size_t)> read_callback, unsigned short local_port_number, const std::string& local_ip_address)
 {
     if (is_started_) {
         return false;
     }
     is_started_ = true;
+    read_callback_ = read_callback;
     local_port_number_ = local_port_number;
     local_ip_address_ = local_ip_address;
     open();
@@ -148,6 +153,16 @@ bool tcp_server::write(const std::vector<unsigned char>& data)
         return false;
     }
     std::shared_ptr<std::vector<unsigned char>> buffer = std::make_shared<std::vector<unsigned char>>(data);
+    boost::asio::async_write(socket_, boost::asio::buffer(*buffer), boost::bind(&tcp_server::on_write, this, boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred, buffer));
+    return true;
+}
+
+bool tcp_server::write(const unsigned char* data, std::size_t size)
+{
+    if (!is_connected_) {
+        return false;
+    }
+    std::shared_ptr<std::vector<unsigned char>> buffer = std::make_shared<std::vector<unsigned char>>(data, data + size);
     boost::asio::async_write(socket_, boost::asio::buffer(*buffer), boost::bind(&tcp_server::on_write, this, boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred, buffer));
     return true;
 }
