@@ -21,7 +21,7 @@ public:
 private:
     void start_io_service();
     void stop_io_service();
-	void stop_();
+    void stop_();
     void open();
     void accept();
     void on_accept(const boost::system::error_code& error);

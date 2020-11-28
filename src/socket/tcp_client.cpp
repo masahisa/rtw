@@ -26,13 +26,13 @@ void tcp_client::start_io_service()
 {
     thread_ = std::thread([this]() -> void {
         io_service_.reset();
-	    io_service_.run();
+        io_service_.run();
     });
 }
 
 void tcp_client::stop_io_service()
 {
-	io_service_.stop();
+    io_service_.stop();
     if (thread_.joinable()) {
         thread_.join();
     }
@@ -49,7 +49,7 @@ void tcp_client::open()
     }
 
     // set sock opt
-	socket_.set_option(boost::asio::socket_base::reuse_address(true), error_code);
+    socket_.set_option(boost::asio::socket_base::reuse_address(true), error_code);
     if (error_code.value() != 0) {
         std::cout << "failed to set a socket option. error code = " << error_code.value() << ", message: " << error_code.message() << std::endl;
     }
@@ -125,17 +125,17 @@ void tcp_client::on_write(const boost::system::error_code& error, std::size_t by
 void tcp_client::close()
 {
     // shutdown
-	boost::system::error_code error;
-	socket_.shutdown(boost::asio::ip::tcp::socket::shutdown_both, error);
-	if (error) {
-		std::cout << "shutdown failed: " << error.message() << std::endl;
-	}
+    boost::system::error_code error;
+    socket_.shutdown(boost::asio::ip::tcp::socket::shutdown_both, error);
+    if (error) {
+        std::cout << "shutdown failed: " << error.message() << std::endl;
+    }
 
-	// close
-	socket_.close(error);
-	if (error) {
-		std::cout << "close failed: " << error.message() << std::endl;
-	}
+    // close
+    socket_.close(error);
+    if (error) {
+        std::cout << "close failed: " << error.message() << std::endl;
+    }
 }
 
 bool tcp_client::start(const std::string& remote_ip_address, unsigned short remote_port_number, const std::string& local_ip_address, unsigned short local_port_number)
@@ -149,7 +149,7 @@ bool tcp_client::start(const std::string& remote_ip_address, unsigned short remo
     remote_ip_address_ = remote_ip_address;
     remote_port_number_ = remote_port_number;
     open();
-	connect();
+    connect();
     start_io_service();
     return true;
 }
@@ -171,7 +171,7 @@ bool tcp_client::stop()
     }
     is_started_ = false;
     stop_io_service();
-	close();
+    close();
     return true;
 }
 

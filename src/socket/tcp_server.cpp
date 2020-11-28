@@ -24,7 +24,7 @@ void tcp_server::start_io_service()
 {
     thread_ = std::thread([this]() -> void {
         io_service_.reset();
-	    io_service_.run();
+        io_service_.run();
     });
 }
 
@@ -115,17 +115,17 @@ void tcp_server::on_write(const boost::system::error_code& error, std::size_t by
 void tcp_server::close()
 {
     // shutdown
-	boost::system::error_code error;
-	socket_.shutdown(boost::asio::ip::tcp::socket::shutdown_both, error);
-	if (error) {
-		std::cout << "shutdown failed: " << error.message() << std::endl;
-	}
+    boost::system::error_code error;
+    socket_.shutdown(boost::asio::ip::tcp::socket::shutdown_both, error);
+    if (error) {
+        std::cout << "shutdown failed: " << error.message() << std::endl;
+    }
 
-	// close
-	socket_.close(error);
-	if (error) {
-		std::cout << "close failed: " << error.message() << std::endl;
-	}
+    // close
+    socket_.close(error);
+    if (error) {
+        std::cout << "close failed: " << error.message() << std::endl;
+    }
 }
 
 bool tcp_server::start(unsigned short local_port_number, const std::string& local_ip_address)
@@ -137,8 +137,8 @@ bool tcp_server::start(unsigned short local_port_number, const std::string& loca
     local_port_number_ = local_port_number;
     local_ip_address_ = local_ip_address;
     open();
-	accept();
-	start_io_service();
+    accept();
+    start_io_service();
     return true;
 }
 
@@ -159,7 +159,7 @@ bool tcp_server::stop()
     }
     is_started_ = false;
     stop_io_service();
-	close();
+    close();
     return true;
 }
 

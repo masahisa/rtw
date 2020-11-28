@@ -25,8 +25,8 @@ private:
 public:
     tcp_client();
 private:
-	void start_io_service();
-	void stop_io_service();
+    void start_io_service();
+    void stop_io_service();
     void open();
     void connect();
     void on_connect(const boost::system::error_code& error);
