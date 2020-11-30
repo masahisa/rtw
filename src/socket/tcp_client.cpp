@@ -140,6 +140,9 @@ void tcp_client::close()
     if (error) {
         std::cout << "close failed: " << error.message() << std::endl;
     }
+
+    // clear buffer
+    read_buff_.consume(read_buff_.size());
 }
 
 bool tcp_client::start(std::function<void(const unsigned char*, std::size_t)> read_callback, const std::string& remote_ip_address, unsigned short remote_port_number, const std::string& local_ip_address, unsigned short local_port_number)
