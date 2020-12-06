@@ -6,4 +6,5 @@ add_library(
     SHARED
     "socket/tcp_client.cpp"
     "socket/tcp_server.cpp"
+    "socket/udp_socket.cpp"
 )
