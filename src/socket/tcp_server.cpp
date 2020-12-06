@@ -181,4 +181,14 @@ bool tcp_server::stop()
     return true;
 }
 
+bool tcp_server::is_started() const
+{
+    return is_started_;
+}
+
+bool tcp_server::is_connected() const
+{
+    return is_connected_;
+}
+
 } // namespace rtw

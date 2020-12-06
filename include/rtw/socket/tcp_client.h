@@ -41,6 +41,8 @@ public:
     bool write(const std::vector<unsigned char>& data);
     bool write(const unsigned char* data, std::size_t size);
     bool stop();
+    bool is_started() const;
+    bool is_connected() const;
 };
 
 } // namespace rtw
