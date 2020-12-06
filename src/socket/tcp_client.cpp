@@ -55,6 +55,12 @@ void tcp_client::open()
         std::cout << "failed to set a socket option. error code = " << error_code.value() << ", message: " << error_code.message() << std::endl;
     }
 
+    // set sock option (no_delay)
+    socket_.set_option(boost::asio::ip::tcp::no_delay(true), error_code);
+    if (error_code.value() != 0) {
+        std::cout << "failed to set a socket option (no_delay). error code = " << error_code.value() << ", message: " << error_code.message() << std::endl;
+    }
+
     // create a local endpoint
     boost::asio::ip::address address = boost::asio::ip::address::from_string(local_ip_address_, error_code);
     if (error_code.value() != 0) {

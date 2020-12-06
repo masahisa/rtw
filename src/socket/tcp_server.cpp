@@ -47,10 +47,16 @@ void tcp_server::open()
         std::cout << "failed to open an acceptor. error code = " << error_code.value() << ", message: " << error_code.message() << std::endl;
     }
 
-    // set sock option
+    // set sock option (reuse_address)
     acceptor_.set_option(boost::asio::socket_base::reuse_address(true), error_code);
     if (error_code.value() != 0) {
-        std::cout << "failed to set a socket option. error code = " << error_code.value() << ", message: " << error_code.message() << std::endl;
+        std::cout << "failed to set a socket option (reuse_address). error code = " << error_code.value() << ", message: " << error_code.message() << std::endl;
+    }
+
+    // set sock option (no_delay)
+    acceptor_.set_option(boost::asio::ip::tcp::no_delay(true), error_code);
+    if (error_code.value() != 0) {
+        std::cout << "failed to set a socket option (no_delay). error code = " << error_code.value() << ", message: " << error_code.message() << std::endl;
     }
 
     // create a local endpoint to listen
