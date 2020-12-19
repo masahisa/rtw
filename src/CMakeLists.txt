@@ -7,5 +7,6 @@ add_library(
     "dp/observable.cpp"
     "socket/tcp_client.cpp"
     "socket/tcp_server.cpp"
+    "socket/tcp_socket.cpp"
     "socket/udp_socket.cpp"
 )
