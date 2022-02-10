@@ -107,14 +107,8 @@ void udp_socket::on_send(const boost::system::error_code& error, std::size_t byt
 
 void udp_socket::close()
 {
-    // shutdown
-    boost::system::error_code error;
-    socket_.shutdown(boost::asio::ip::udp::socket::shutdown_both, error);
-    if (error) {
-        std::cout << "shutdown failed: " << error.message() << std::endl;
-    }
-
     // close
+    boost::system::error_code error;
     socket_.close(error);
     if (error) {
         std::cout << "close failed: " << error.message() << std::endl;
