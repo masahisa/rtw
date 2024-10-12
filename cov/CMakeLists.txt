@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.5)
 
 # lcov input directory
 set(LCOV_INPUT_DIR ${CMAKE_SOURCE_DIR}/build/src/CMakeFiles/)

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.5)
 
 # doxygen main page
 set(DOXYGEN_MAIN_PAGE ${CMAKE_SOURCE_DIR}/README.md)
